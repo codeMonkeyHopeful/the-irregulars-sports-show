@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 const navItems = [
   { label: 'Home', icon: Home, href: '/' },
+  { label: 'Latest Episode', icon: Play, href: '/episodes/latest' },
   { label: 'Episodes', icon: Play, href: '/episodes' },
   { label: 'Spotify', icon: Music2, href: '/spotify' },
   { label: 'About', icon: Info, href: '/about' },
@@ -23,7 +24,7 @@ export default function Sidebar() {
         <Music2 size={22} className="text-[#1DB954] flex-shrink-0" />
         {!collapsed && (
           <span className="text-white text-sm font-medium whitespace-nowrap">
-            Irregulars
+            Irregular
           </span>
         )}
       </div>

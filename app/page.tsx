@@ -1,4 +1,4 @@
-import SpotifyPlayer from '@/components/Spotify/SpotifyPlayer';
+
 import logo from '@/public/logo.jpg';
 import spotify from '@/public/spotify.svg';
 import { Metadata } from 'next';
@@ -22,7 +22,7 @@ export default function Home() {
           height={500}
           alt="Logo of The Irregular Sports Show"
         />
-        <SpotifyPlayer />
+    
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         <a
