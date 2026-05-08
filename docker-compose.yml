@@ -1,0 +1,25 @@
+services:
+  impossibles:
+    build: .
+    container_name: impossibles
+    restart: unless-stopped
+    expose:
+      - '3000'
+    environment:
+      - NODE_ENV=production
+      - TZ=America/Los_Angeles
+    networks:
+      - web
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.impossibles.rule=Host(`impossibles.ryan-jasinski.com`)'
+      - 'traefik.http.routers.impossibles.entrypoints=websecure'
+      - 'traefik.http.routers.impossibles.tls=true'
+      - 'traefik.http.routers.impossibles.tls.certresolver=letsencrypt'
+      - 'traefik.http.services.impossibles.loadbalancer.server.port=3000'
+      - 'traefik.http.routers.impossibles-http.rule=Host(`impossibles.ryan-jasinski.com`)'
+      - 'traefik.http.routers.impossibles-http.entrypoints=web'
+      - 'traefik.http.routers.impossibles-http.middlewares=https-redirect'
+networks:
+  web:
+    external: true
