@@ -1,4 +1,5 @@
 import logo from '@/public/logo.jpg';
+import spotify from '@/public/spotify.svg';
 import Image from 'next/image';
 
 export default function Home() {
@@ -8,7 +9,6 @@ export default function Home() {
         <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
           <span className="title">The Irregular Sports Show</span>
         </h1>
-
         <Image
           src={logo}
           width={500}
@@ -17,7 +17,19 @@ export default function Home() {
         />
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        {`I'm a footer`}
+        <a
+          href="https://open.spotify.com/show/6EwXjHiWsRiE9SE8GuJJv4"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Image
+            className="dark:invert"
+            src={spotify}
+            width={50}
+            height={50}
+            alt="Logo of The Irregular Sports Show"
+          />
+        </a>
       </footer>
     </div>
   );
