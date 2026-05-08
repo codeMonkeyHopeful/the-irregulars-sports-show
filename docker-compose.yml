@@ -1,7 +1,7 @@
 services:
-  impossibles:
+  irregulars:
     build: .
-    container_name: impossibles
+    container_name: irregulars
     restart: unless-stopped
     expose:
       - '3000'
@@ -12,14 +12,14 @@ services:
       - web
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.impossibles.rule=Host(`impossibles.ryan-jasinski.com`)'
-      - 'traefik.http.routers.impossibles.entrypoints=websecure'
-      - 'traefik.http.routers.impossibles.tls=true'
-      - 'traefik.http.routers.impossibles.tls.certresolver=letsencrypt'
-      - 'traefik.http.services.impossibles.loadbalancer.server.port=3000'
-      - 'traefik.http.routers.impossibles-http.rule=Host(`impossibles.ryan-jasinski.com`)'
-      - 'traefik.http.routers.impossibles-http.entrypoints=web'
-      - 'traefik.http.routers.impossibles-http.middlewares=https-redirect'
+      - 'traefik.http.routers.irregulars.rule=Host(`irregulars.ryan-jasinski.com`)'
+      - 'traefik.http.routers.irregulars.entrypoints=websecure'
+      - 'traefik.http.routers.irregulars.tls=true'
+      - 'traefik.http.routers.irregulars.tls.certresolver=letsencrypt'
+      - 'traefik.http.services.irregulars.loadbalancer.server.port=3000'
+      - 'traefik.http.routers.irregulars-http.rule=Host(`irregulars.ryan-jasinski.com`)'
+      - 'traefik.http.routers.irregulars-http.entrypoints=web'
+      - 'traefik.http.routers.irregulars-http.middlewares=https-redirect'
 networks:
   web:
     external: true
