@@ -1,6 +1,12 @@
 import logo from '@/public/logo.jpg';
 import spotify from '@/public/spotify.svg';
+import { Metadata } from 'next';
 import Image from 'next/image';
+
+export const metadata: Metadata = {
+  title: 'The Irregular Sports Show',
+  description: 'A podcast about sports.',
+};
 
 export default function Home() {
   return (
