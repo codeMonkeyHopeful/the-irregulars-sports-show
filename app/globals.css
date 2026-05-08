@@ -24,3 +24,9 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.title {
+  background: linear-gradient(90deg, hsl(261, 100%, 70%), hsl(246, 77%, 47%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
