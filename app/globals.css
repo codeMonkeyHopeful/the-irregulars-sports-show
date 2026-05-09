@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
@@ -29,4 +29,8 @@ body {
   background: linear-gradient(90deg, hsl(261, 100%, 70%), hsl(246, 77%, 47%));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.spotify-player {
+  margin-top: 2rem;
 }
