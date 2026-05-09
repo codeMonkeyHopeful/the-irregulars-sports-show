@@ -7,15 +7,18 @@ interface BioCardProps {
   photoAlt?: string;
 }
 
+const DEFAULT_PHOTO = '/profile-placeholder.jpg';
+
 export function BioCard({ name, bio, photoSrc, photoAlt }: BioCardProps) {
   return (
     <div className="flex w-full rounded-2xl bg-white shadow-md overflow-hidden">
       <div className="flex-shrink-0 p-4">
         <div className="relative h-48 w-48 overflow-hidden rounded-xl">
           <Image
-            src={photoSrc}
+            src={photoSrc || DEFAULT_PHOTO}
             alt={photoAlt ?? name}
-            className="h-full w-full object-cover"
+            fill
+            className="object-cover"
           />
         </div>
       </div>
