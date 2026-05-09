@@ -8,9 +8,19 @@ export const metadata: Metadata = {
 
 const teamMembers = [
   {
-    name: 'Jane Doe',
+    name: 'Dick Smith',
     photoSrc: '',
-    bio: 'Jane is a senior engineer with 10 years of experience building distributed systems...',
+    bio: 'Dick is a sports journalist with 15 years of experience covering major sporting events',
+  },
+  {
+    name: 'Carlos "Da Gobbler" Rodriguez',
+    photoSrc: '',
+    bio: 'Carlos is a sports analyst with a passion for uncovering the stories behind the games while getting behind the boys in the locker room.',
+  },
+  {
+    name: 'Haywood Jablowme',
+    photoSrc: '',
+    bio: 'Haywood is a senior engineer with 10 years of experience building distributed systems keeping this site alive.',
   },
 ];
 export default function SpotifyLatest() {
@@ -27,15 +37,16 @@ export default function SpotifyLatest() {
             We started this podcast as a way to share our passion for sports
             with others and to connect with like-minded individuals.
           </p>
-
-          {teamMembers.map((member) => (
-            <BioCard
-              key={member.name}
-              name={member.name}
-              photoSrc={member.photoSrc}
-              bio={member.bio}
-            />
-          ))}
+          <div className="flex flex-col gap-6 mt-4">
+            {teamMembers.map((member) => (
+              <BioCard
+                key={member.name}
+                name={member.name}
+                photoSrc={member.photoSrc}
+                bio={member.bio}
+              />
+            ))}
+          </div>
         </div>
       </main>
     </div>
