@@ -21,12 +21,13 @@ export default function SpotifyLatest() {
           <span className="title">About the Team</span>
         </h1>
         <div>
-          <p className="text-lg text-white/70 max-w-2xl text-center">
+          <p className="text-lg text-white/70 max-w-auto text-center pb-20">
             We are a group of sports enthusiasts who love to talk about the
-            latest news and trends in the world of sports. We started this
-            podcast as a way to share our passion for sports with others and to
-            connect with like-minded individuals.
+            latest news and trends in the world of sports. <br />
+            We started this podcast as a way to share our passion for sports
+            with others and to connect with like-minded individuals.
           </p>
+
           {teamMembers.map((member) => (
             <BioCard
               key={member.name}
