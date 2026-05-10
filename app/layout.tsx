@@ -15,6 +15,32 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+// Metadata is used for SEO and social sharing. It can be overridden in individual pages.
+// TODO Fill in the blanks
+export const metadata: Metadata = {
+  title: {
+    default: 'The Irregular Sports Show',
+    template: '%s | The Irregular Sports Show',
+  },
+  description:
+    'A podcast covering irregular sports, latest episodes, and more.',
+  keywords: ['sports podcast', 'irregular sports', 'sports show', 'podcast'],
+  openGraph: {
+    title: 'The Irregular Sports Show',
+    description:
+      'A podcast covering irregular sports, latest episodes, and more.',
+    url: 'https://yoursite.com',
+    siteName: 'The Irregular Sports Show',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Irregular Sports Show',
+    description:
+      'A podcast covering irregular sports, latest episodes, and more.',
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
