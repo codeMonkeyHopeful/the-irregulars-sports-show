@@ -33,9 +33,14 @@ export default function SpotifyLatest() {
         <div>
           <p className="text-lg text-white/70 max-w-auto text-center pb-20">
             We are a group of sports enthusiasts who love to talk about the
-            latest news and trends in the world of sports. <br />
+            latest news and trends in the world of sports.
+            <br />
             We started this podcast as a way to share our passion for sports
             with others and to connect with like-minded individuals.
+            <br />
+            <br />
+            Oh yeah and sometimes we have a few drinks and banter at one
+            another.
           </p>
           <div className="flex flex-col gap-6 mt-4">
             {teamMembers.map((member) => (
