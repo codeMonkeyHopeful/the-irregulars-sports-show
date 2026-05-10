@@ -1,10 +1,8 @@
 import MainContent from '@/components/Layout/MainContent';
 import Sidebar from '@/components/Layout/Sidebar';
 import { SidebarProvider } from '@/context/SidebarContext';
-import spotify from '@/public/spotify.svg';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import Image from 'next/image';
 import './globals.css';
 
 const geistSans = Geist({

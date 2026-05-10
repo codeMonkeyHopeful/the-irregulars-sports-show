@@ -1,6 +1,7 @@
 'use client';
 import { useSidebar } from '@/context/SidebarContext';
 import spotify from '@/public/spotify.svg';
+import { Menu } from 'lucide-react';
 import Image from 'next/image';
 
 export default function MainContent({
@@ -8,13 +9,28 @@ export default function MainContent({
 }: {
   children: React.ReactNode;
 }) {
-  const { collapsed } = useSidebar();
+  const { collapsed, toggleMobile } = useSidebar();
+
   return (
     <main
-      className={`flex-1 transition-all duration-300 ${collapsed ? 'ml-[60px]' : 'ml-[220px]'}`}
+      className={`flex-1 flex flex-col min-h-screen transition-all duration-300
+        md:${collapsed ? 'ml-[60px]' : 'ml-[220px]'}`}
     >
-      {children}
-      <footer className="sticky bottom-0 flex gap-[24px] flex-wrap items-center justify-center p-4 bg-white dark:bg-black">
+      {/* Mobile header */}
+      <div className="flex items-center gap-3 px-4 py-4 border-b border-white/10 md:hidden">
+        <button
+          onClick={toggleMobile}
+          className="text-white/60 hover:text-white"
+          aria-label="Open menu"
+        >
+          <Menu size={22} />
+        </button>
+        <span className="text-white text-sm font-medium">Irregular</span>
+      </div>
+
+      <div className="flex-1">{children}</div>
+
+      <footer className="sticky bottom-0 flex gap-[24px] flex-wrap items-center justify-center p-4 bg-black">
         <a
           href="https://open.spotify.com/show/6EwXjHiWsRiE9SE8GuJJv4"
           target="_blank"
