@@ -1,5 +1,4 @@
-
-import logo from '@/public/logo.jpg';
+import logo3 from '@/public/logo3.png';
 import spotify from '@/public/spotify.svg';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -17,12 +16,11 @@ export default function Home() {
           <span className="title">The Irregular Sports Show</span>
         </h1>
         <Image
-          src={logo}
+          src={logo3}
           width={500}
           height={500}
           alt="Logo of The Irregular Sports Show"
         />
-    
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         <a
