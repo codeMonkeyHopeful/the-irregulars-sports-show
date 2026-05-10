@@ -14,7 +14,7 @@ export default function MainContent({
       className={`flex-1 transition-all duration-300 ${collapsed ? 'ml-[60px]' : 'ml-[220px]'}`}
     >
       {children}
-      <footer className="flex gap-[24px] flex-wrap items-center justify-center p-4">
+      <footer className="sticky bottom-0 flex gap-[24px] flex-wrap items-center justify-center p-4 bg-white dark:bg-black">
         <a
           href="https://open.spotify.com/show/6EwXjHiWsRiE9SE8GuJJv4"
           target="_blank"
