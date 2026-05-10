@@ -24,12 +24,12 @@ export const metadata: Metadata = {
     template: '%s | The Irregular Sports Show',
   },
   description:
-    'A podcast covering irregular sports, latest episodes, and more.',
+    'A podcast covering sports, latest episodes, and more, all by The Irregulars.',
   keywords: ['sports podcast', 'irregular sports', 'sports show', 'podcast'],
   openGraph: {
     title: 'The Irregular Sports Show',
     description:
-      'A podcast covering irregular sports, latest episodes, and more.',
+      'A podcast covering sports, latest episodes, and more, all by The Irregulars.',
     url: baseUrl,
     siteName: 'The Irregular Sports Show',
     type: 'website',
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'The Irregular Sports Show',
     description:
-      'A podcast covering irregular sports, latest episodes, and more.',
+      'A podcast covering sports, latest episodes, and more, all by The Irregulars.',
   },
 };
 
