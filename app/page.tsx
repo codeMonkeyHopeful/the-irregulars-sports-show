@@ -22,21 +22,7 @@ export default function Home() {
           alt="Logo of The Irregular Sports Show"
         />
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          href="https://open.spotify.com/show/6EwXjHiWsRiE9SE8GuJJv4"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            className="dark:invert"
-            src={spotify}
-            width={50}
-            height={50}
-            alt="Logo of The Irregular Sports Show"
-          />
-        </a>
-      </footer>
+
     </div>
   );
 }

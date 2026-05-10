@@ -1,8 +1,10 @@
 import MainContent from '@/components/Layout/MainContent';
 import Sidebar from '@/components/Layout/Sidebar';
 import { SidebarProvider } from '@/context/SidebarContext';
+import spotify from '@/public/spotify.svg';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import Image from 'next/image';
 import './globals.css';
 
 const geistSans = Geist({
@@ -25,10 +27,12 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex">
+      <body className="min-h-screen flex flex-col">
         <SidebarProvider>
-          <Sidebar />
-          <MainContent>{children}</MainContent>
+          <div className="flex flex-1">
+            <Sidebar />
+            <MainContent>{children}</MainContent>
+          </div>
         </SidebarProvider>
       </body>
     </html>
