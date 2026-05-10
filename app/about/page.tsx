@@ -39,8 +39,10 @@ export default function SpotifyLatest() {
             with others and to connect with like-minded individuals.
             <br />
             <br />
-            Oh yeah and sometimes we have a few drinks and banter at one
-            another.
+            <strong>
+              Oh yeah and sometimes we have a few drinks and banter at one
+              another.
+            </strong>
           </p>
           <div className="flex flex-col gap-6 mt-4">
             {teamMembers.map((member) => (
