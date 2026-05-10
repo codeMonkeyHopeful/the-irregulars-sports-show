@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+const baseUrl = 'https://irregulas.ryan-jasinski.com';
 // Metadata is used for SEO and social sharing. It can be overridden in individual pages.
 // TODO Fill in the blanks
 export const metadata: Metadata = {
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     title: 'The Irregular Sports Show',
     description:
       'A podcast covering irregular sports, latest episodes, and more.',
-    url: 'https://yoursite.com',
+    url: baseUrl,
     siteName: 'The Irregular Sports Show',
     type: 'website',
   },
@@ -51,6 +52,21 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'PodcastSeries',
+              name: 'The Irregular Sports Show',
+              url: baseUrl,
+              description: 'A podcast covering irregular sports.',
+            }),
+          }}
+        />
+      </head>
       <body className="min-h-screen flex flex-col">
         <SidebarProvider>
           <div className="flex flex-1">
