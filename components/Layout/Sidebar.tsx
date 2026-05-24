@@ -38,7 +38,7 @@ export default function Sidebar() {
           w-[220px]`}
       >
         <div className="flex items-center gap-3 px-4 py-5 border-b border-white/10 overflow-hidden">
-          <Music2 size={22} className="text-[#1DB954] flex-shrink-0" />
+          <Music2 size={22} id="note" className="flex-shrink-0" />
           {(!collapsed || mobileOpen) && (
             <span className="text-white text-sm font-medium whitespace-nowrap">
               Irregulars

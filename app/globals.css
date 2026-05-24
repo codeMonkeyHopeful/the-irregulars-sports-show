@@ -34,3 +34,9 @@ body {
 .spotify-player {
   margin-top: 2rem;
 }
+
+#note {
+  color: hsl(2, 100, 29);
+}
+
+
