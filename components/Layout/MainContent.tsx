@@ -25,7 +25,7 @@ export default function MainContent({
         >
           <Menu size={22} />
         </button>
-        <span className="text-white text-sm font-medium">Irregular</span>
+        <span className="text-white text-sm font-medium">Irregulars</span>
       </div>
 
       <div className="flex-1">{children}</div>
@@ -37,6 +37,7 @@ export default function MainContent({
           rel="noopener noreferrer"
         >
           <Image
+            id="spotify-logo"
             className="dark:invert"
             src={spotify}
             width={50}

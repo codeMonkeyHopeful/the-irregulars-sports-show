@@ -38,10 +38,13 @@ export default function Sidebar() {
           w-[220px]`}
       >
         <div className="flex items-center gap-3 px-4 py-5 border-b border-white/10 overflow-hidden">
-          <Music2 size={22} className="text-[#1DB954] flex-shrink-0" />
+          <Music2 size={22} id="note" className="flex-shrink-0" />
           {(!collapsed || mobileOpen) && (
-            <span className="text-white text-sm font-medium whitespace-nowrap">
-              Irregular
+            <span
+              id="sidebar-title"
+              className="text-sm font-medium whitespace-nowrap"
+            >
+              Irregulars
             </span>
           )}
         </div>
@@ -52,8 +55,8 @@ export default function Sidebar() {
               key={label}
               href={href}
               onClick={() => mobileOpen && toggleMobile()}
+              id="sidebar-link"
               className="flex items-center gap-3 px-4 py-2.5 text-sm
-                text-white/60 hover:text-white hover:bg-white/5
                 transition-colors overflow-hidden whitespace-nowrap"
             >
               <Icon size={20} className="flex-shrink-0" />

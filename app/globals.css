@@ -26,11 +26,35 @@ body {
 }
 
 .title {
-  background: linear-gradient(90deg, hsl(261, 100%, 70%), hsl(246, 77%, 47%));
+  background: linear-gradient(90deg, hsl(2, 100, 29), hsl(50, 77, 88));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .spotify-player {
   margin-top: 2rem;
+}
+
+#note {
+  color: hsl(2, 100, 29);
+}
+
+#sidebar-title {
+  color: hsl(50, 77, 88);
+}
+
+#sidebar-link {
+  color: hsl(50, 77, 88);
+}
+
+#sidebar-link:hover {
+  color: hsl(2, 100, 29);
+}
+
+#spotify-logo {
+  filter: drop-shadow(0 0 5px hsl(50, 77, 88));
+}
+
+#spotify-logo:hover {
+  filter: drop-shadow(0 0 5px hsl(2, 100, 29));
 }
