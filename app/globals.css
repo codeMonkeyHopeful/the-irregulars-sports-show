@@ -42,3 +42,11 @@ body {
 #sidebar-title {
   color: hsl(50, 77, 88);
 }
+
+#sidebar-link {
+  color: hsl(50, 77, 88);
+}
+
+#sidebar-link:hover {
+  color: hsl(2, 100, 29);
+}
