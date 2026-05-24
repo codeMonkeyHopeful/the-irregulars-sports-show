@@ -41,7 +41,7 @@ export default function Sidebar() {
           <Music2 size={22} className="text-[#1DB954] flex-shrink-0" />
           {(!collapsed || mobileOpen) && (
             <span className="text-white text-sm font-medium whitespace-nowrap">
-              Irregular
+              Irregulars
             </span>
           )}
         </div>
