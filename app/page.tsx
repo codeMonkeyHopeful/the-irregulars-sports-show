@@ -19,6 +19,7 @@ export default function Home() {
           </span>
         </h1>
         <Image
+          loading="eager"
           src={logo}
           width={500}
           height={500}
