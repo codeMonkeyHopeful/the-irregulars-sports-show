@@ -12,11 +12,11 @@ export default function Home() {
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center">
-        <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
+        <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem] text-center">
           <span className="title">
-            We, collectively,
+            We, collectively, are
             <br />
-            are The Irregulars...
+            The Irregulars...
           </span>
         </h1>
         <Image
