@@ -40,7 +40,10 @@ export default function Sidebar() {
         <div className="flex items-center gap-3 px-4 py-5 border-b border-white/10 overflow-hidden">
           <Music2 size={22} id="note" className="flex-shrink-0" />
           {(!collapsed || mobileOpen) && (
-            <span className="text-white text-sm font-medium whitespace-nowrap">
+            <span
+              id="sidebar-title"
+              className="text-sm font-medium whitespace-nowrap"
+            >
               Irregulars
             </span>
           )}

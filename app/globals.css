@@ -39,4 +39,6 @@ body {
   color: hsl(2, 100, 29);
 }
 
-
+#sidebar-title {
+  color: hsl(50, 77, 88);
+}
