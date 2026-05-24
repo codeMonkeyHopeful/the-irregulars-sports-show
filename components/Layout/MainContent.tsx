@@ -37,6 +37,7 @@ export default function MainContent({
           rel="noopener noreferrer"
         >
           <Image
+            id="spotify-logo"
             className="dark:invert"
             src={spotify}
             width={50}

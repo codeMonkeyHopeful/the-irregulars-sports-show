@@ -50,3 +50,11 @@ body {
 #sidebar-link:hover {
   color: hsl(2, 100, 29);
 }
+
+#spotify-logo {
+  filter: drop-shadow(0 0 5px hsl(50, 77, 88));
+}
+
+#spotify-logo:hover {
+  filter: drop-shadow(0 0 5px hsl(2, 100, 29));
+}

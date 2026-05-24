@@ -1,5 +1,4 @@
 import logo from '@/public/logo.png';
-import spotify from '@/public/spotify.svg';
 import { Metadata } from 'next';
 import Image from 'next/image';
 
