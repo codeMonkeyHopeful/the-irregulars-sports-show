@@ -10,17 +10,22 @@ const teamMembers = [
   {
     name: 'Coach',
     photoSrc: '/profile-coach.jpeg',
-    bio: 'Dick is a sports journalist with 15 years of experience covering major sporting event',
+    bio: 'Placeholder bio.',
   },
   {
-    name: 'Carlos "Da Gobbler" Rodriguez',
-    photoSrc: '',
-    bio: 'Carlos is a sports analyst with a passion for uncovering the stories behind the games while getting behind the boys in the locker room.',
+    name: 'Luke 3:16',
+    photoSrc: '/profile-luke316.jpeg',
+    bio: 'Placeholder bio.',
   },
   {
-    name: 'Haywood Jablowme',
-    photoSrc: '',
-    bio: 'Haywood is a senior engineer with 10 years of experience building distributed systems keeping this site alive.',
+    name: 'Blymm',
+    photoSrc: '/profile-blymm.jpeg',
+    bio: 'Placeholder bio.',
+  },
+  {
+    name: 'ZeeFeezee',
+    photoSrc: '/profile-ZeeFeezee.jpeg',
+    bio: 'Placeholder bio.',
   },
 ];
 export default function About() {
