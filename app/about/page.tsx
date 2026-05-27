@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 const teamMembers = [
   {
     name: 'Coach',
+    title: 'Former Head Coach for Kamiak J.V. Football',
     photoSrc: '/profile-coach.jpeg',
     bio: 'Placeholder bio.',
   },
@@ -26,6 +27,15 @@ const teamMembers = [
     name: 'ZeeFeezee',
     photoSrc: '/profile-ZeeFeezee.jpeg',
     bio: 'Placeholder bio.',
+  },
+  {
+    name: 'codeMonkeyHopeful',
+    title: 'Head Dev in Charge (yup HDIC)',
+    photoSrc: '/profile-ryan.jpg',
+    teams: 'The fuck is a team? Ohhh, ohh, sports, go team!',
+    bio: 'Grew up in Ohio went to OSU, married a wolverine... Love all things tech!  Built this site and love the crew!',
+    quote:
+      'There are only two mistakes one can make along the road to truth; not going all the way, and not starting.',
   },
 ];
 export default function About() {
@@ -54,8 +64,11 @@ export default function About() {
               <BioCard
                 key={member.name}
                 name={member.name}
+                title={member.title}
+                teams={member.teams}
                 photoSrc={member.photoSrc}
                 bio={member.bio}
+                quote={member.quote}
               />
             ))}
           </div>
