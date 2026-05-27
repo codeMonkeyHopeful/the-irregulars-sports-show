@@ -43,6 +43,7 @@ export default function MainContent({
             width={50}
             height={50}
             alt="Logo of The Irregular Sports Show"
+            priority
           />
         </a>
       </footer>

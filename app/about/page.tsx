@@ -8,9 +8,9 @@ export const metadata: Metadata = {
 
 const teamMembers = [
   {
-    name: 'Dick Smith',
-    photoSrc: '',
-    bio: 'Dick is a sports journalist with 15 years of experience covering major sporting events',
+    name: 'Coach',
+    photoSrc: '/profile-coach.jpeg',
+    bio: 'Dick is a sports journalist with 15 years of experience covering major sporting event',
   },
   {
     name: 'Carlos "Da Gobbler" Rodriguez',
@@ -23,7 +23,7 @@ const teamMembers = [
     bio: 'Haywood is a senior engineer with 10 years of experience building distributed systems keeping this site alive.',
   },
 ];
-export default function SpotifyLatest() {
+export default function About() {
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center">

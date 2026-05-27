@@ -18,6 +18,7 @@ export function BioCard({ name, bio, photoSrc, photoAlt }: BioCardProps) {
             src={photoSrc || DEFAULT_PHOTO}
             alt={photoAlt ?? name}
             fill
+            sizes="192px"
             className="object-cover"
           />
         </div>
