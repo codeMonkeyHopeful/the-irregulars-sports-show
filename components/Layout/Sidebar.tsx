@@ -1,18 +1,8 @@
 'use client';
+import { navItems } from '@/constants/navItems';
 import { useSidebar } from '@/context/SidebarContext';
-import { ChevronLeft, Home, Info, Music2, Play } from 'lucide-react';
+import { ChevronLeft, Music2 } from 'lucide-react';
 import Link from 'next/link';
-
-const navItems = [
-  { label: 'Home', icon: Home, href: '/' },
-  { label: 'Latest Episode', icon: Play, href: '/episodes/latest' },
-  {
-    label: 'Spotify',
-    icon: Music2,
-    href: 'https://open.spotify.com/show/6EwXjHiWsRiE9SE8GuJJv4',
-  },
-  { label: 'About', icon: Info, href: '/about' },
-];
 
 export default function Sidebar() {
   const { collapsed, toggle, mobileOpen, toggleMobile } = useSidebar();
