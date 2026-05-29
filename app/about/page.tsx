@@ -20,7 +20,7 @@ const teamMembers = [
   },
   {
     name: 'Blymm',
-    photoSrc: '/profile-blymm.jpeg',
+    photoSrc: '/profile-blymm.png',
     bio: 'Placeholder bio.',
   },
   {
@@ -33,7 +33,7 @@ const teamMembers = [
     title: 'Head Dev in Charge (yup HDIC)',
     photoSrc: '/profile-ryan.jpg',
     teams: 'The fuck is a team? Ohhh, ohh, sports, go team!',
-    bio: 'Grew up in Ohio went to OSU, married a wolverine... Love all things tech!  Built this site and love the crew!',
+    bio: 'Grew up in Ohio, went to OSU, married a wolverine... Love all things tech!  Built this site and love the crew!',
     quote:
       'There are only two mistakes one can make along the road to truth; not going all the way, and not starting.',
   },
