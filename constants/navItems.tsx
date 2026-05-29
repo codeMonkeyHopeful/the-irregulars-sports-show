@@ -10,3 +10,4 @@ export const navItems = [
   },
   { label: 'About', icon: Info, href: '/about' },
 ];
+
