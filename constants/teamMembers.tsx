@@ -1,5 +1,13 @@
 export const teamMembers = [
   {
+    name: 'Blymm',
+    title: `Creator and executive producer of The Irregulars Sports Show`,
+    photoSrc: '/profile-blymm.png',
+    teams: `Teams Placeholder`,
+    bio: 'Formerly of the hip hop group Rainwater Conglomerate, one half of the duo Baby C & Blymm',
+    quote: `We are making sports cool again!`,
+  },
+  {
     name: 'Coach',
     title: 'Former Head Coach for Kamiak J.V. Football',
     photoSrc: '/profile-coach.jpeg',
@@ -16,14 +24,6 @@ export const teamMembers = [
       'Kansas City Chiefs, Seattle Mariners, Seattle Supersonics, Oklahoma State University',
     bio: 'WESCO South Assistant Wrestling Coach of the Year  in 2008, Former Head Coach of the Kamiak High School J.V. Football team',
     quote: `Placeholder quote.`,
-  },
-  {
-    name: 'Blymm',
-    title: `Creator and executive producer of The Irregulars Sports Show`,
-    photoSrc: '/profile-blymm.png',
-    teams: `Teams Placeholder`,
-    bio: 'Formerly of the hip hop group Rainwater Conglomerate, one half of the duo Baby C & Blymm',
-    quote: `We are making sports cool again!`,
   },
   {
     name: 'ZeeFeezee',
