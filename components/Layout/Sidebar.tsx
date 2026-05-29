@@ -6,7 +6,6 @@ import Link from 'next/link';
 const navItems = [
   { label: 'Home', icon: Home, href: '/' },
   { label: 'Latest Episode', icon: Play, href: '/episodes/latest' },
-  { label: 'Episodes', icon: Play, href: '/episodes' },
   {
     label: 'Spotify',
     icon: Music2,
