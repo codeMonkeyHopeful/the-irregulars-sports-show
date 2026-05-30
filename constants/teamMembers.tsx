@@ -34,6 +34,22 @@ export const teamMembers = [
     quote: `Do dope shit, with dope people!`,
   },
   {
+    name: 'Ratt Pack Attack Alex',
+    title: ``,
+    photoSrc: '/profile-alex.jpeg',
+    teams: `Bulls , Jayhawks , Penn State (NCAAF) , Eagles (NFL) `,
+    bio: '2022 Irregulars March Madness bracket champion.',
+    quote: `I had a purpose before anyone had an opinion.`,
+  },
+  {
+    name: 'Vanni The God',
+    title: ``,
+    photoSrc: '/profile-vanni.jpeg',
+    teams: `Seattle Seahawks , Mariners, Lakers`,
+    bio: 'Former D1 rugby player.',
+    quote: `Let's Do It Now & Not Later ! `,
+  },
+  {
     name: 'codeMonkeyHopeful',
     title: 'Head Dev in Charge (yup HDIC)',
     photoSrc: '/profile-ryan.jpg',
