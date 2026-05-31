@@ -47,7 +47,15 @@ export const teamMembers = [
     photoSrc: '/profile-vanni.jpeg',
     teams: `Seattle Seahawks , Mariners, Lakers`,
     bio: 'Former D1 rugby player.',
-    quote: `Let's Do It Now & Not Later ! `,
+    quote: `Let's Do It Now & Not Later !`,
+  },
+  {
+    name: 'Facemob',
+    title: ``,
+    photoSrc: '/profile-facemob.jpeg',
+    teams: `Las Vegas Raiders, Utah Jazz, NY Yankees`,
+    bio: 'Greatest achievement is overcoming the lies of this world and trusting in God’s plan of salvation.',
+    quote: `Endure until the end`,
   },
   {
     name: 'codeMonkeyHopeful',
