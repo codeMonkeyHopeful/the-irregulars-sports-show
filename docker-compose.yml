@@ -12,12 +12,14 @@ services:
       - web
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.irregulars.rule=Host(`irregulars.ryan-jasinski.com`) || Host(`irregulars.codemonkeyhopeful.com`)'
+      - 'traefik.http.routers.irregulars.rule=Host(`irregulars-sports.com`) || Host(`www.irregulars-sports.com`)'
+#      - 'traefik.http.routers.irregulars.rule=Host(`irregulars.ryan-jasinski.com`) || Host(`irregulars.codemonkeyhopeful.com`)'
       - 'traefik.http.routers.irregulars.entrypoints=websecure'
       - 'traefik.http.routers.irregulars.tls=true'
       - 'traefik.http.routers.irregulars.tls.certresolver=letsencrypt'
       - 'traefik.http.services.irregulars.loadbalancer.server.port=3000'
-      - 'traefik.http.routers.irregulars-http.rule=Host(`irregulars.ryan-jasinski.com`) || Host(`irregulars.codemonkeyhopeful.com`)'
+#      - 'traefik.http.routers.irregulars-http.rule=Host(`irregulars.ryan-jasinski.com`) || Host(`irregulars.codemonkeyhopeful.com`)'
+      - 'traefik.http.routers.irregulars-http.rule=Host(`irregulars-sports.com`) || Host(`www.irregulars-sports.com`)'
       - 'traefik.http.routers.irregulars-http.entrypoints=web'
       - 'traefik.http.routers.irregulars-http.middlewares=https-redirect'
 networks:
