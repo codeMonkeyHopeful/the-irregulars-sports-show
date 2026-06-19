@@ -1,6 +1,7 @@
 'use client';
 import { useSidebar } from '@/context/SidebarContext';
 import spotify from '@/public/spotify.svg';
+import x from '@/public/x.png';
 import { Menu } from 'lucide-react';
 import Image from 'next/image';
 
@@ -36,15 +37,34 @@ export default function MainContent({
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image
-            id="spotify-logo"
-            className="dark:invert"
-            src={spotify}
-            width={50}
-            height={50}
-            alt="Logo of The Irregular Sports Show"
-            priority
-          />
+          <div className="w-[50px] h-[50px] relative">
+            <Image
+              id="spotify-logo"
+              src={spotify}
+              alt="Spotify"
+              fill
+              style={{ objectFit: 'contain' }}
+              className="dark:invert"
+              priority
+            />
+          </div>
+        </a>
+        <a
+          href="https://x.com/IrregularsPod"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div className="w-[50px] h-[50px] relative">
+            <Image
+              id="x-logo"
+              src={x}
+              alt="X"
+              fill
+              style={{ objectFit: 'contain' }}
+              className="dark:invert"
+              priority
+            />
+          </div>
         </a>
       </footer>
     </main>
