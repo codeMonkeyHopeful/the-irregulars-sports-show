@@ -58,6 +58,14 @@ export const teamMembers = [
     quote: `Endure until the end`,
   },
   {
+    name: 'Just Alex',
+    title: `Just Alex`,
+    photoSrc: '/profile-just-alex.jpeg',
+    teams: `Possibly the whole Eastern Seaboard, whoever is playing well!?!?!?!?`,
+    bio: `Master's Degree in Special Education, Girls Flag Football Head Coach, Comedian!`,
+    quote: ``,
+  },
+  {
     name: 'codeMonkeyHopeful',
     title: 'Head Dev in Charge (yup HDIC)',
     photoSrc: '/profile-ryan.jpg',
