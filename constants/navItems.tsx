@@ -8,6 +8,5 @@ export const navItems = [
     icon: Music2,
     href: 'https://open.spotify.com/show/6EwXjHiWsRiE9SE8GuJJv4',
   },
-  { label: 'About', icon: Info, href: '/about' },
+  { label: 'The Team', icon: Info, href: '/about' },
 ];
-
