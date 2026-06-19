@@ -3,16 +3,16 @@ import { teamMembers } from '@/constants/teamMembers';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'About the Team',
+  title: 'Who We Are',
   description: 'A podcast about sports.',
 };
 
-export default function About() {
+export default function WhoWeAre() {
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center">
         <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-          <span className="title">About the Team</span>
+          <span className="title">Who We Are</span>
         </h1>
         <div>
           <p className="text-lg text-white/70 max-w-auto text-center pb-20">
