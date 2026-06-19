@@ -27,6 +27,7 @@ body {
 
 .title {
   background: linear-gradient(90deg, hsl(2, 100, 29), hsl(50, 77, 88));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
