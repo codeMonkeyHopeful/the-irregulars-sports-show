@@ -1,6 +1,7 @@
 'use client';
 import { useSidebar } from '@/context/SidebarContext';
 import spotify from '@/public/spotify.svg';
+import x from '@/public/x.jpg';
 import { Menu } from 'lucide-react';
 import Image from 'next/image';
 
@@ -42,7 +43,22 @@ export default function MainContent({
             src={spotify}
             width={50}
             height={50}
-            alt="Logo of The Irregular Sports Show"
+            alt="Logo of Spotify for The Irregular Sports Show"
+            priority
+          />
+        </a>
+        <a
+          href="https://x.com/IrregularsPod"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Image
+            id="x-logo"
+            className="dark:invert"
+            src={x}
+            width={50}
+            height={50}
+            alt="Logo of X (formerly Twitter) for The Irregular Sports Show"
             priority
           />
         </a>
