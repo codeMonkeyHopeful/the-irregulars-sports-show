@@ -19,6 +19,7 @@ export default function PhotoGallery({ photos }: { photos: any[] }) {
             className="img"
             loading="lazy"
             onClick={() => setSelected(photo)}
+            onError={(e) => (e.currentTarget.style.display = 'none')}
           />
         ))}
       </div>
