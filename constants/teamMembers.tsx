@@ -2,7 +2,7 @@ export const teamMembers = [
   {
     name: 'Blymm',
     title: `Creator and executive producer of The Irregulars Sports Show`,
-    photoSrc: '/profile-blymm.png',
+    photoSrc: '/profile-blymm.jpg',
     teams: `Teams Placeholder`,
     bio: 'Formerly of the hip hop group Rainwater Conglomerate, one half of the duo Baby C & Blymm',
     quote: `We are making sports cool again!`,
