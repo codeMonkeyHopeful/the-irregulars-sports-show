@@ -73,6 +73,14 @@ export const teamMembers = [
     quote: ``,
   },
   {
+    name: 'Vee Double',
+    title: `Title Placeholder`,
+    photoSrc: '/profile-vee-double.jpg',
+    teams: `New York Giants, New York Knicks, New York Mets, Florida State`,
+    bio: `Bio Placeholder`,
+    quote: ``,
+  },
+  {
     name: 'codeMonkeyHopeful',
     title: 'Head Dev in Charge (yup HDIC)',
     photoSrc: '/profile-ryan.jpg',
