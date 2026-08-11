@@ -37,6 +37,7 @@ export default function WhoWeAre() {
                 teams={member.teams}
                 photoSrc={member.photoSrc}
                 bio={member.bio}
+                contact={member.contact}
                 quote={member.quote}
               />
             ))}

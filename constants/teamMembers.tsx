@@ -3,8 +3,15 @@ export const teamMembers = [
     name: 'Blymm',
     title: `Creator and executive producer of The Irregulars Sports Show`,
     photoSrc: '/profile-blymm.jpg',
-    teams: `Teams Placeholder`,
+    teams: `Miami Hurricanes (College Football), Oklahoma Sooners (College Basketball), New York Mets, Los Angeles Lakers, Seattle Seahawks`,
     bio: 'Formerly of the hip hop group Rainwater Conglomerate, one half of the duo Baby C & Blymm',
+    contact: (
+      <>
+        <a href="mailto:blymm@irregulars-sports.com">
+          blymm@irregulars-sports.com
+        </a>
+      </>
+    ),
     quote: `We are making sports cool again!`,
   },
   {

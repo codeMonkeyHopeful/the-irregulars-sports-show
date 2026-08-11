@@ -5,6 +5,7 @@ interface BioCardProps {
   title?: string;
   teams?: string;
   bio: string;
+  contact?: React.ReactNode;
   quote?: string;
   photoSrc: string;
   photoAlt?: string;
@@ -17,6 +18,7 @@ export function BioCard({
   title,
   teams,
   bio,
+  contact,
   quote,
   photoSrc,
   photoAlt,
@@ -48,6 +50,12 @@ export function BioCard({
         <p className="text-gray-600 leading-relaxed whitespace-pre-line flex-1">
           {bio}
         </p>
+        {contact && (
+          <div className="mt-3">
+            <p className="text-gray-500 text-sm">{contact}</p>
+          </div>
+        )}
+
         {quote && (
           <p className="text-gray-400 text-sm italic mt-3">"{quote}"</p>
         )}
