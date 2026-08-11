@@ -12,7 +12,18 @@ export default function ContactUs() {
         <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
           <span className="title">Contact Us</span>
         </h1>
-        <div>Contact information goes here</div>
+        <div>
+          Let us know what you think! We would love to hear from you. Please
+          reach out to us with any questions, comments, or feedback.
+          <div className="mt-4 text-center">
+            <a
+              href="mailto:contact@irregulars-sports.com?subject=Customer%20Contact%20Request"
+              className="text-2xl font-bold text-blue-500 hover:underline"
+            >
+              contact@irregulars-sports.com
+            </a>
+          </div>
+        </div>
       </main>
     </div>
   );
