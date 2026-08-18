@@ -13,18 +13,6 @@ export class LiveRoom extends DurableObject {
 
     this.ctx.acceptWebSocket(server);
 
-    server.addEventListener('message', (event) => {
-      this.handleMessage(server, event.data);
-    });
-
-    server.addEventListener('close', () => {
-      // Cloudflare handles the WebSocket lifecycle.
-    });
-
-    server.addEventListener('error', () => {
-      // Cloudflare handles the connection cleanup.
-    });
-
     server.send(
       JSON.stringify({
         type: 'connected',
@@ -38,17 +26,17 @@ export class LiveRoom extends DurableObject {
     });
   }
 
-  private handleMessage(sender: WebSocket, data: string | ArrayBuffer) {
-    if (typeof data !== 'string') {
+  async webSocketMessage(socket: WebSocket, message: string | ArrayBuffer) {
+    if (typeof message !== 'string') {
       return;
     }
 
-    let message: unknown;
+    let parsedMessage: unknown;
 
     try {
-      message = JSON.parse(data);
+      parsedMessage = JSON.parse(message);
     } catch {
-      sender.send(
+      socket.send(
         JSON.stringify({
           type: 'error',
           message: 'Invalid message.',
@@ -60,8 +48,21 @@ export class LiveRoom extends DurableObject {
 
     this.broadcast({
       type: 'message',
-      data: message,
+      data: parsedMessage,
     });
+  }
+
+  async webSocketClose(
+    socket: WebSocket,
+    code: number,
+    reason: string,
+    wasClean: boolean
+  ) {
+    socket.close(code, reason);
+  }
+
+  async webSocketError(socket: WebSocket, error: unknown) {
+    console.error('WebSocket error:', error);
   }
 
   private broadcast(data: unknown) {
@@ -71,7 +72,7 @@ export class LiveRoom extends DurableObject {
       try {
         socket.send(message);
       } catch {
-        // Ignore connections that are no longer available.
+        // Ignore sockets that are no longer available.
       }
     }
   }
