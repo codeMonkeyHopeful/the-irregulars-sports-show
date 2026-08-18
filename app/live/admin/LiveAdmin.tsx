@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useLivePasscode } from '../useLivePasscode';
 import { useLiveStatus } from '../useLiveStatus';
 
 const ADMIN_PASSWORD = 'test123';
@@ -8,20 +9,16 @@ const ADMIN_PASSWORD = 'test123';
 export const LiveAdmin = () => {
   const [password, setPassword] = useState('');
   const [authenticated, setAuthenticated] = useState(false);
-  const [passcode, setPasscode] = useState('');
 
   const { isLive, startLive, endLive } = useLiveStatus();
 
+  const { passcode, updatePasscode, savePasscode } = useLivePasscode();
+
   useEffect(() => {
     const savedAuth = localStorage.getItem('live-admin-auth');
-    const savedPasscode = localStorage.getItem('live-passcode');
 
     if (savedAuth === 'true') {
       setAuthenticated(true);
-    }
-
-    if (savedPasscode) {
-      setPasscode(savedPasscode);
     }
   }, []);
 
@@ -43,7 +40,7 @@ export const LiveAdmin = () => {
   };
 
   const handleSavePasscode = () => {
-    localStorage.setItem('live-passcode', passcode);
+    savePasscode();
     alert('Listener passcode saved.');
   };
 
@@ -84,6 +81,7 @@ export const LiveAdmin = () => {
 
   return (
     <div className="flex w-full flex-col gap-[32px]">
+      {/* Live controls */}
       <section className="w-full">
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-2xl font-bold">Live Show Control</h2>
@@ -125,6 +123,7 @@ export const LiveAdmin = () => {
         </div>
       </section>
 
+      {/* Listener passcode */}
       <section className="w-full">
         <h2 className="mb-6 text-center text-2xl font-bold">Listener Chat</h2>
 
@@ -142,7 +141,7 @@ export const LiveAdmin = () => {
               id="passcode"
               type="text"
               value={passcode}
-              onChange={(e) => setPasscode(e.target.value)}
+              onChange={(e) => updatePasscode(e.target.value)}
               className="mt-2 w-full rounded-lg border p-3"
               placeholder="Example: IRREGULARS26"
             />
