@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "npm run photo && next dev",
     "photo": "node scripts/generate-photo-manifest.mjs",
     "build": "npm run photo && next build",
     "start": "next start",

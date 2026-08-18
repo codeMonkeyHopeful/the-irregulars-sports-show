@@ -1,5 +1,41 @@
 export const photos = [
   {
+    "id": "podcast/4.jpg",
+    "album": "podcast",
+    "filename": "4.jpg",
+    "src": "/photos/podcast/4.jpg"
+  },
+  {
+    "id": "podcast/5.jpg",
+    "album": "podcast",
+    "filename": "5.jpg",
+    "src": "/photos/podcast/5.jpg"
+  },
+  {
+    "id": "podcast/6.jpg",
+    "album": "podcast",
+    "filename": "6.jpg",
+    "src": "/photos/podcast/6.jpg"
+  },
+  {
+    "id": "podcast/7.jpg",
+    "album": "podcast",
+    "filename": "7.jpg",
+    "src": "/photos/podcast/7.jpg"
+  },
+  {
+    "id": "podcast/8.jpg",
+    "album": "podcast",
+    "filename": "8.jpg",
+    "src": "/photos/podcast/8.jpg"
+  },
+  {
+    "id": "podcast/9.jpg",
+    "album": "podcast",
+    "filename": "9.jpg",
+    "src": "/photos/podcast/9.jpg"
+  },
+  {
     "id": "techmo-bowl/15.jpg",
     "album": "techmo-bowl",
     "filename": "15.jpg",
