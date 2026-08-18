@@ -61,3 +61,36 @@ body {
 #x-logo:hover {
   filter: drop-shadow(0 0 5px hsl(2, 100, 29));
 }
+
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: 100%;
+  max-width: 900px;
+}
+
+.album-card {
+  color: inherit;
+  text-decoration: none;
+}
+
+.album-cover {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.album-card:hover .album-cover {
+  transform: scale(1.03);
+}
+
+.album-title {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+}

@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
-import { PhotoGallery } from './PhotoGallery';
-import { photos } from './photos';
+import { AlbumGrid } from './AlbumGrid';
+import { albums } from './albums';
 
 export const metadata: Metadata = {
   title: 'On the Field',
@@ -15,7 +15,7 @@ export default function OnTheField() {
           <span className="title">On the Field</span>
         </h1>
 
-        <PhotoGallery photos={photos} />
+        <AlbumGrid albums={albums} />
       </main>
     </div>
   );
