@@ -11,12 +11,17 @@ type LiveRoomMessage = {
 
 type UseLiveRoomOptions = {
   enabled?: boolean;
+  authToken?: string | null;
 };
 
-export const useLiveRoom = ({ enabled = true }: UseLiveRoomOptions = {}) => {
+export const useLiveRoom = ({
+  enabled = true,
+  authToken = null,
+}: UseLiveRoomOptions = {}) => {
   const socketRef = useRef<WebSocket | null>(null);
 
   const [connected, setConnected] = useState(false);
+
   const [lastMessage, setLastMessage] = useState<LiveRoomMessage | null>(null);
 
   useEffect(() => {
@@ -34,6 +39,20 @@ export const useLiveRoom = ({ enabled = true }: UseLiveRoomOptions = {}) => {
 
     socket.addEventListener('open', () => {
       setConnected(true);
+
+      /*
+       * If this connection belongs to an
+       * authenticated admin, identify it
+       * immediately after connecting.
+       */
+      if (authToken) {
+        socket.send(
+          JSON.stringify({
+            type: 'authenticate',
+            token: authToken,
+          })
+        );
+      }
     });
 
     socket.addEventListener('message', (event) => {
@@ -59,7 +78,7 @@ export const useLiveRoom = ({ enabled = true }: UseLiveRoomOptions = {}) => {
       socket.close();
       socketRef.current = null;
     };
-  }, [enabled]);
+  }, [enabled, authToken]);
 
   const sendMessage = useCallback((message: unknown) => {
     const socket = socketRef.current;
