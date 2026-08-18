@@ -1,8 +1,25 @@
 // @ts-ignore
 import { default as handler } from './.open-next/worker.js';
 
-export { LiveRoom } from './LiveRoom';
+import { LiveRoom } from './LiveRoom';
+
+export { LiveRoom };
 
 export default {
-  fetch: handler.fetch,
+  async fetch(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext
+  ): Promise<Response> {
+    const url = new URL(request.url);
+
+    if (url.pathname === '/api/live') {
+      const roomId = env.LIVE_ROOM.idFromName('main');
+      const room = env.LIVE_ROOM.get(roomId);
+
+      return room.fetch(request);
+    }
+
+    return handler.fetch(request, env, ctx);
+  },
 };
