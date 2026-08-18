@@ -59,4 +59,16 @@ export const photos = [
     id: '15.jpg',
     src: '/photos/15.jpg',
   },
+  {
+    id: '16.jpg',
+    src: '/photos/16.jpg',
+  },
+  {
+    id: '17.jpg',
+    src: '/photos/17.jpg',
+  },
+  {
+    id: '18.jpg',
+    src: '/photos/18.jpg',
+  },
 ];
