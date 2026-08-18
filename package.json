@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "npm run photo && next dev",
+    "dev:cloudflare": "npm run build && opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "photo": "node scripts/generate-photo-manifest.mjs",
     "build": "npm run photo && next build",
     "start": "next start",
