@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useLiveChat } from '../useLiveChat';
 import { useLivePasscode } from '../useLivePasscode';
 import { useLiveStatus } from '../useLiveStatus';
 
@@ -10,9 +11,13 @@ export const LiveAdmin = () => {
   const [password, setPassword] = useState('');
   const [authenticated, setAuthenticated] = useState(false);
 
+  const [hostMessage, setHostMessage] = useState('');
+
   const { isLive, startLive, endLive } = useLiveStatus();
 
   const { passcode, updatePasscode, savePasscode } = useLivePasscode();
+
+  const { messages, addMessage, deleteMessage, clearMessages } = useLiveChat();
 
   useEffect(() => {
     const savedAuth = localStorage.getItem('live-admin-auth');
@@ -42,6 +47,29 @@ export const LiveAdmin = () => {
   const handleSavePasscode = () => {
     savePasscode();
     alert('Listener passcode saved.');
+  };
+
+  const handleHostMessage = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const trimmedMessage = hostMessage.trim();
+
+    if (!trimmedMessage) {
+      return;
+    }
+
+    addMessage('Host', trimmedMessage, true);
+    setHostMessage('');
+  };
+
+  const handleClearChat = () => {
+    const confirmed = window.confirm(
+      'Are you sure you want to delete all chat messages?'
+    );
+
+    if (confirmed) {
+      clearMessages();
+    }
   };
 
   if (!authenticated) {
@@ -153,6 +181,89 @@ export const LiveAdmin = () => {
           >
             Save Passcode
           </button>
+        </div>
+      </section>
+
+      {/* Host message */}
+      <section className="w-full">
+        <h2 className="mb-6 text-center text-2xl font-bold">Host Message</h2>
+
+        <form onSubmit={handleHostMessage} className="rounded-xl border p-6">
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={hostMessage}
+              onChange={(e) => setHostMessage(e.target.value)}
+              className="min-w-0 flex-1 rounded-lg border p-3"
+              placeholder="Send a message as the host..."
+              maxLength={500}
+            />
+
+            <button
+              type="submit"
+              className="rounded-lg bg-black px-5 py-3 font-semibold text-white"
+            >
+              Send
+            </button>
+          </div>
+        </form>
+      </section>
+
+      {/* Chat moderation */}
+      <section className="w-full">
+        <div className="mb-6 flex items-center justify-between">
+          <h2 className="text-2xl font-bold">Chat Moderation</h2>
+
+          {messages.length > 0 && (
+            <button
+              onClick={handleClearChat}
+              className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white"
+            >
+              Clear Chat
+            </button>
+          )}
+        </div>
+
+        <div className="rounded-xl border">
+          {messages.length === 0 ? (
+            <div className="p-8 text-center text-sm text-gray-500">
+              No messages yet.
+            </div>
+          ) : (
+            <div className="flex max-h-[500px] flex-col gap-3 overflow-y-auto p-4">
+              {messages.map((message) => (
+                <div key={message.id} className="rounded-lg bg-gray-100 p-4">
+                  <div className="flex items-center gap-2">
+                    <span className="font-bold">{message.name}</span>
+
+                    {message.isHost && (
+                      <span className="rounded bg-red-600 px-2 py-0.5 text-xs font-bold text-white">
+                        HOST
+                      </span>
+                    )}
+
+                    <span className="ml-auto text-xs text-gray-400">
+                      {new Date(message.timestamp).toLocaleTimeString([], {
+                        hour: 'numeric',
+                        minute: '2-digit',
+                      })}
+                    </span>
+                  </div>
+
+                  <div className="mt-2 flex items-start justify-between gap-4">
+                    <p className="break-words">{message.message}</p>
+
+                    <button
+                      onClick={() => deleteMessage(message.id)}
+                      className="shrink-0 text-sm font-semibold text-red-600 underline"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </div>
