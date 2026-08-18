@@ -5,10 +5,14 @@ import { LiveRoom } from './LiveRoom';
 
 export { LiveRoom };
 
+type WorkerEnv = {
+  LIVE_ROOM: DurableObjectNamespace;
+};
+
 export default {
   async fetch(
     request: Request,
-    env: Env,
+    env: WorkerEnv,
     ctx: ExecutionContext
   ): Promise<Response> {
     const url = new URL(request.url);
