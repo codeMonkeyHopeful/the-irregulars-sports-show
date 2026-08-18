@@ -1,24 +1,31 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ChatMessage } from './liveRoom';
+import type { ChatMessage, LiveRoom } from './liveRoom';
 
-const STORAGE_KEY = 'live-chat-messages';
+const STORAGE_KEY = 'live-room';
+
+const DEFAULT_ROOM: LiveRoom = {
+  isLive: false,
+  passcode: '',
+  messages: [],
+};
 
 export const useLiveChat = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
 
   useEffect(() => {
     const loadMessages = () => {
-      const savedMessages = localStorage.getItem(STORAGE_KEY);
+      const savedRoom = localStorage.getItem(STORAGE_KEY);
 
-      if (!savedMessages) {
+      if (!savedRoom) {
         setMessages([]);
         return;
       }
 
       try {
-        setMessages(JSON.parse(savedMessages));
+        const room: LiveRoom = JSON.parse(savedRoom);
+        setMessages(room.messages ?? []);
       } catch {
         setMessages([]);
       }
@@ -39,6 +46,29 @@ export const useLiveChat = () => {
     };
   }, []);
 
+  const updateRoom = (update: Partial<LiveRoom>) => {
+    const savedRoom = localStorage.getItem(STORAGE_KEY);
+
+    let room: LiveRoom = DEFAULT_ROOM;
+
+    if (savedRoom) {
+      try {
+        room = JSON.parse(savedRoom);
+      } catch {
+        room = DEFAULT_ROOM;
+      }
+    }
+
+    const updatedRoom: LiveRoom = {
+      ...room,
+      ...update,
+    };
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedRoom));
+
+    return updatedRoom;
+  };
+
   const addMessage = (name: string, message: string, isHost = false) => {
     const newMessage: ChatMessage = {
       id: crypto.randomUUID(),
@@ -51,7 +81,9 @@ export const useLiveChat = () => {
     setMessages((currentMessages) => {
       const updatedMessages = [...currentMessages, newMessage];
 
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedMessages));
+      updateRoom({
+        messages: updatedMessages,
+      });
 
       return updatedMessages;
     });
@@ -63,7 +95,9 @@ export const useLiveChat = () => {
         (message) => message.id !== id
       );
 
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedMessages));
+      updateRoom({
+        messages: updatedMessages,
+      });
 
       return updatedMessages;
     });
@@ -71,7 +105,10 @@ export const useLiveChat = () => {
 
   const clearMessages = () => {
     setMessages([]);
-    localStorage.removeItem(STORAGE_KEY);
+
+    updateRoom({
+      messages: [],
+    });
   };
 
   return {
