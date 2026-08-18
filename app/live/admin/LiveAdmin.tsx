@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { DEFAULT_LIVE_ROOM } from '../liveRoom';
 import { useLiveChat } from '../useLiveChat';
 import { useLivePasscode } from '../useLivePasscode';
 import { useLiveStatus } from '../useLiveStatus';
@@ -26,6 +27,20 @@ export const LiveAdmin = () => {
       setAuthenticated(true);
     }
   }, []);
+
+  const handleResetShow = () => {
+    const confirmed = window.confirm(
+      'Reset the entire live show? This will end the live session, clear the chat, and remove the listener passcode.'
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    localStorage.setItem('live-room', JSON.stringify(DEFAULT_LIVE_ROOM));
+
+    window.location.reload();
+  };
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -148,6 +163,23 @@ export const LiveAdmin = () => {
               </button>
             )}
           </div>
+        </div>
+      </section>
+      <section className="w-full">
+        <h2 className="mb-6 text-2xl font-bold">Show Management</h2>
+
+        <div className="rounded-xl border border-red-200 p-6">
+          <p className="text-sm text-gray-500">
+            Reset the local live show before starting a new test. This will end
+            the show, clear all messages, and remove the listener passcode.
+          </p>
+
+          <button
+            onClick={handleResetShow}
+            className="mt-5 rounded-lg bg-red-600 px-6 py-3 font-semibold text-white hover:bg-red-700"
+          >
+            Reset Show
+          </button>
         </div>
       </section>
 

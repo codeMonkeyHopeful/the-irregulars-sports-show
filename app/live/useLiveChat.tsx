@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import type { ChatMessage, LiveRoom } from './liveRoom';
 
 const STORAGE_KEY = 'live-room';
+const MAX_MESSAGES = 200;
 
 const DEFAULT_ROOM: LiveRoom = {
   isLive: false,
@@ -25,6 +26,7 @@ export const useLiveChat = () => {
 
       try {
         const room: LiveRoom = JSON.parse(savedRoom);
+
         setMessages(room.messages ?? []);
       } catch {
         setMessages([]);
@@ -79,7 +81,9 @@ export const useLiveChat = () => {
     };
 
     setMessages((currentMessages) => {
-      const updatedMessages = [...currentMessages, newMessage];
+      const updatedMessages = [...currentMessages, newMessage].slice(
+        -MAX_MESSAGES
+      );
 
       updateRoom({
         messages: updatedMessages,
