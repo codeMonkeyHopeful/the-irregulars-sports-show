@@ -4,7 +4,8 @@ type Album = {
   id: string;
   title: string;
   cover: string;
-  photos: string[];
+  start: number;
+  end: number;
 };
 
 export const AlbumGrid = ({ albums }: { albums: Album[] }) => {
