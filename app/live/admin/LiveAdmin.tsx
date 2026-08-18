@@ -1,6 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+const ADMIN_PASSWORD = 'test123';
 
 export const LiveAdmin = () => {
   const [password, setPassword] = useState('');
@@ -9,15 +11,51 @@ export const LiveAdmin = () => {
   const [isLive, setIsLive] = useState(false);
   const [passcode, setPasscode] = useState('');
 
+  useEffect(() => {
+    const savedAuth = localStorage.getItem('live-admin-auth');
+    const savedLive = localStorage.getItem('live-status');
+    const savedPasscode = localStorage.getItem('live-passcode');
+
+    if (savedAuth === 'true') {
+      setAuthenticated(true);
+    }
+
+    if (savedLive === 'true') {
+      setIsLive(true);
+    }
+
+    if (savedPasscode) {
+      setPasscode(savedPasscode);
+    }
+  }, []);
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // TEMPORARY ONLY
-    if (password === 'test123') {
+    if (password === ADMIN_PASSWORD) {
+      localStorage.setItem('live-admin-auth', 'true');
       setAuthenticated(true);
+      setPassword('');
     } else {
       alert('Incorrect password');
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('live-admin-auth');
+    setAuthenticated(false);
+  };
+
+  const handleToggleLive = () => {
+    const newStatus = !isLive;
+
+    setIsLive(newStatus);
+    localStorage.setItem('live-status', String(newStatus));
+  };
+
+  const handleSavePasscode = () => {
+    localStorage.setItem('live-passcode', passcode);
+    alert('Listener passcode saved.');
   };
 
   if (!authenticated) {
@@ -58,9 +96,16 @@ export const LiveAdmin = () => {
   return (
     <div className="flex w-full flex-col gap-[32px]">
       <section className="w-full">
-        <h2 className="mb-6 text-center text-2xl font-bold">
-          Live Show Control
-        </h2>
+        <div className="mb-6 flex items-center justify-between">
+          <h2 className="text-2xl font-bold">Live Show Control</h2>
+
+          <button
+            onClick={handleLogout}
+            className="text-sm text-gray-500 underline"
+          >
+            Logout
+          </button>
+        </div>
 
         <div className="rounded-xl border p-6">
           <div className="flex flex-col items-center gap-5 text-center sm:flex-row sm:justify-between">
@@ -73,7 +118,7 @@ export const LiveAdmin = () => {
             </div>
 
             <button
-              onClick={() => setIsLive((current) => !current)}
+              onClick={handleToggleLive}
               className={`rounded-lg px-6 py-3 font-semibold text-white ${
                 isLive ? 'bg-red-600' : 'bg-green-600'
               }`}
@@ -108,8 +153,8 @@ export const LiveAdmin = () => {
           </div>
 
           <button
+            onClick={handleSavePasscode}
             className="mt-5 rounded-lg bg-black px-6 py-3 font-semibold text-white"
-            onClick={() => alert(`Passcode set to: ${passcode}`)}
           >
             Save Passcode
           </button>
