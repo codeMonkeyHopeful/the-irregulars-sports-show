@@ -1,14 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-
-export type ChatMessage = {
-  id: string;
-  name: string;
-  message: string;
-  timestamp: number;
-  isHost?: boolean;
-};
+import { ChatMessage } from './liveRoom';
 
 const STORAGE_KEY = 'live-chat-messages';
 
@@ -16,27 +9,26 @@ export const useLiveChat = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
 
   useEffect(() => {
-    const savedMessages = localStorage.getItem(STORAGE_KEY);
+    const loadMessages = () => {
+      const savedMessages = localStorage.getItem(STORAGE_KEY);
 
-    if (savedMessages) {
+      if (!savedMessages) {
+        setMessages([]);
+        return;
+      }
+
       try {
         setMessages(JSON.parse(savedMessages));
       } catch {
         setMessages([]);
       }
-    }
+    };
+
+    loadMessages();
 
     const handleStorage = (event: StorageEvent) => {
       if (event.key === STORAGE_KEY) {
-        if (event.newValue) {
-          try {
-            setMessages(JSON.parse(event.newValue));
-          } catch {
-            setMessages([]);
-          }
-        } else {
-          setMessages([]);
-        }
+        loadMessages();
       }
     };
 
@@ -56,17 +48,25 @@ export const useLiveChat = () => {
       isHost,
     };
 
-    const updatedMessages = [...messages, newMessage];
+    setMessages((currentMessages) => {
+      const updatedMessages = [...currentMessages, newMessage];
 
-    setMessages(updatedMessages);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedMessages));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedMessages));
+
+      return updatedMessages;
+    });
   };
 
   const deleteMessage = (id: string) => {
-    const updatedMessages = messages.filter((message) => message.id !== id);
+    setMessages((currentMessages) => {
+      const updatedMessages = currentMessages.filter(
+        (message) => message.id !== id
+      );
 
-    setMessages(updatedMessages);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedMessages));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedMessages));
+
+      return updatedMessages;
+    });
   };
 
   const clearMessages = () => {
