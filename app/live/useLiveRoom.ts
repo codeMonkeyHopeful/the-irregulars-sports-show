@@ -6,6 +6,7 @@ type LiveRoomMessage = {
   type: string;
   data?: unknown;
   message?: string;
+  id?: string;
 };
 
 type UseLiveRoomOptions = {
