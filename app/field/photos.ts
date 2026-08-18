@@ -1,5 +1,47 @@
 export const photos = [
   {
+    "id": "out/1.jpg",
+    "album": "out",
+    "filename": "1.jpg",
+    "src": "/photos/out/1.jpg"
+  },
+  {
+    "id": "out/2.jpg",
+    "album": "out",
+    "filename": "2.jpg",
+    "src": "/photos/out/2.jpg"
+  },
+  {
+    "id": "out/3.jpg",
+    "album": "out",
+    "filename": "3.jpg",
+    "src": "/photos/out/3.jpg"
+  },
+  {
+    "id": "out/10.jpg",
+    "album": "out",
+    "filename": "10.jpg",
+    "src": "/photos/out/10.jpg"
+  },
+  {
+    "id": "out/11.jpg",
+    "album": "out",
+    "filename": "11.jpg",
+    "src": "/photos/out/11.jpg"
+  },
+  {
+    "id": "out/13.jpg",
+    "album": "out",
+    "filename": "13.jpg",
+    "src": "/photos/out/13.jpg"
+  },
+  {
+    "id": "out/14.jpg",
+    "album": "out",
+    "filename": "14.jpg",
+    "src": "/photos/out/14.jpg"
+  },
+  {
     "id": "podcast/4.jpg",
     "album": "podcast",
     "filename": "4.jpg",
