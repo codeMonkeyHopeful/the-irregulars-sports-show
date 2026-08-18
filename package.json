@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "node scripts/generate-photo-manifest.mjs && next build",
+    "dev": "npm run photos && next dev",
+    "photos": "node scripts/generate-photo-manifest.mjs",
+    "build": "npm run photos && next build",
     "start": "next start",
     "lint": "eslint",
     "preview": "npm run build && opennextjs-cloudflare build && opennextjs-cloudflare preview",

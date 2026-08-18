@@ -16,6 +16,7 @@ const photos = fs
 
 const content = `export const photos = ${JSON.stringify(photos, null, 2)};\n`;
 
+fs.mkdirSync(outputDir, { recursive: true });
 fs.writeFileSync(outputFile, content);
 
 console.log(`Generated photo manifest with ${photos.length} photos.`);

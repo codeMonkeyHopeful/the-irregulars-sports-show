@@ -7,10 +7,14 @@ import { useInfinitePhotos } from './useInfinitePhotos';
 export default function PhotoGallery({ photos }: { photos: any[] }) {
   const [selected, setSelected] = useState<any | null>(null);
 
+  const photoCount = photos.length;
+
   const { visiblePhotos, loadMoreRef } = useInfinitePhotos(photos, 9);
 
   return (
     <>
+      <p>Total photos: {photoCount}</p>
+
       <div className="grid">
         {visiblePhotos.map((photo) => (
           <img
@@ -19,7 +23,10 @@ export default function PhotoGallery({ photos }: { photos: any[] }) {
             className="img"
             loading="lazy"
             onClick={() => setSelected(photo)}
-            onError={(e) => (e.currentTarget.style.display = 'none')}
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+            }}
+            alt=""
           />
         ))}
       </div>
