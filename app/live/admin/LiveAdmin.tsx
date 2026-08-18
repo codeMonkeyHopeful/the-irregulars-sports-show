@@ -28,9 +28,9 @@ export const LiveAdmin = () => {
   const { messages, addMessage, deleteMessage, clearMessages } = useLiveChat();
 
   useEffect(() => {
-    const savedToken = localStorage.getItem('live-admin-token');
+    const token = localStorage.getItem('live-admin-token');
 
-    if (savedToken) {
+    if (token) {
       setAuthenticated(true);
     }
   }, []);
@@ -52,17 +52,6 @@ export const LiveAdmin = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    setLoginError('');
-
-    const trimmedPassword = password.trim();
-
-    if (!trimmedPassword) {
-      setLoginError('Please enter your password.');
-      return;
-    }
-
-    setLoggingIn(true);
-
     try {
       const response = await fetch('/api/live/admin/login', {
         method: 'POST',
@@ -70,33 +59,39 @@ export const LiveAdmin = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          password: trimmedPassword,
+          password,
         }),
       });
 
-      const data = (await response.json()) as AdminLoginResponse;
+      const body: unknown = await response.json();
 
-      if (!response.ok) {
-        setLoginError(
-          typeof data.error === 'string' ? data.error : 'Login failed.'
-        );
-
+      if (
+        !body ||
+        typeof body !== 'object' ||
+        !('success' in body) ||
+        !('token' in body)
+      ) {
+        alert('Login failed.');
         return;
       }
 
-      if (data.success !== true || typeof data.token !== 'string') {
-        setLoginError('Login failed.');
+      if (typeof body.success !== 'boolean' || typeof body.token !== 'string') {
+        alert('Invalid login response.');
         return;
       }
 
-      localStorage.setItem('live-admin-token', data.token);
+      if (!response.ok || !body.success) {
+        alert('Incorrect password.');
+        return;
+      }
+
+      localStorage.setItem('live-admin-token', body.token);
 
       setAuthenticated(true);
       setPassword('');
-    } catch {
-      setLoginError('Unable to connect to the server. Please try again.');
-    } finally {
-      setLoggingIn(false);
+    } catch (error) {
+      console.error('Admin login error:', error);
+      alert('Unable to contact the server.');
     }
   };
 
