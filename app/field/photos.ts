@@ -36,6 +36,12 @@ export const photos = [
     "src": "/photos/podcast/9.jpg"
   },
   {
+    "id": "podcast/12.jpg",
+    "album": "podcast",
+    "filename": "12.jpg",
+    "src": "/photos/podcast/12.jpg"
+  },
+  {
     "id": "techmo-bowl/15.jpg",
     "album": "techmo-bowl",
     "filename": "15.jpg",
