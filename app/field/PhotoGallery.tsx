@@ -4,7 +4,7 @@ import { useState } from 'react';
 import PhotoModal from './PhotoModal';
 import { useInfinitePhotos } from './useInfinitePhotos';
 
-export default function PhotoGallery({ photos }: { photos: any[] }) {
+export const PhotoGallery = ({ photos }: { photos: any[] }) => {
   const [selected, setSelected] = useState<any | null>(null);
 
   const photoCount = photos.length;
@@ -59,4 +59,4 @@ export default function PhotoGallery({ photos }: { photos: any[] }) {
       `}</style>
     </>
   );
-}
+};

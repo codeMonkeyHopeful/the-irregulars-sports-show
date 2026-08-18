@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import PhotoGallery from './PhotoGallery';
+import { PhotoGallery } from './PhotoGallery';
 import { photos } from './photos';
 
 export const metadata: Metadata = {
