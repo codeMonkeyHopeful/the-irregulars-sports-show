@@ -13,8 +13,6 @@ export const PhotoGallery = ({ photos }: { photos: any[] }) => {
 
   return (
     <>
-      <p>Total photos: {photoCount}</p>
-
       <div className="grid">
         {visiblePhotos.map((photo) => (
           <img
