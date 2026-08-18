@@ -1,5 +1,6 @@
 'use client';
 
+import { LogOut } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { DEFAULT_LIVE_ROOM } from '../liveRoom';
 import { useLiveChat } from '../useLiveChat';
@@ -202,28 +203,20 @@ export const LiveAdmin = () => {
       {/* PAGE HEADER */}
       <div className="flex items-center justify-between border-b border-gray-200 pb-5">
         <div>
-          <p className="font-bold tracking-wide text-[hsl(2,100%,29%)]">
-            🔴 LIVE
-          </p>
-
-          <h1 className="mt-1 text-3xl font-bold text-[#171717]">
-            Show Control
-          </h1>
+          <h1 className="mt-1 text-3xl font-bold text-white">Show Control</h1>
         </div>
 
         <button
           onClick={handleLogout}
           className="text-sm font-medium text-gray-500 underline transition hover:text-[hsl(2,100%,29%)]"
         >
-          Logout
+          <LogOut size={30} className="inline-block mr-1" />
         </button>
       </div>
 
       {/* LIVE CONTROLS */}
       <section className="w-full">
-        <h2 className="mb-4 text-xl font-bold text-[#171717]">
-          Live Show Control
-        </h2>
+        <h2 className="mb-4 text-xl font-bold text-white">Live Show Control</h2>
 
         <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
           <div className="bg-[hsl(2,100%,29%)] px-6 py-4">
@@ -266,9 +259,7 @@ export const LiveAdmin = () => {
 
       {/* SHOW MANAGEMENT */}
       <section className="w-full">
-        <h2 className="mb-4 text-xl font-bold text-[#171717]">
-          Show Management
-        </h2>
+        <h2 className="mb-4 text-xl font-bold text-white">Show Management</h2>
 
         <div className="rounded-xl border border-red-200 bg-red-50 p-6">
           <p className="text-sm leading-6 text-gray-600">
@@ -287,7 +278,7 @@ export const LiveAdmin = () => {
 
       {/* LISTENER PASSCODE */}
       <section className="w-full">
-        <h2 className="mb-4 text-xl font-bold text-[#171717]">Listener Chat</h2>
+        <h2 className="mb-4 text-xl font-bold text-white">Listener Chat</h2>
 
         <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
           <p className="text-sm leading-6 text-gray-500">
@@ -297,7 +288,7 @@ export const LiveAdmin = () => {
           <div className="mx-auto mt-6 max-w-md">
             <label
               htmlFor="passcode"
-              className="block text-sm font-semibold text-[#171717]"
+              className="block text-sm font-semibold text-white"
             >
               Listener Passcode
             </label>
@@ -325,7 +316,7 @@ export const LiveAdmin = () => {
 
       {/* HOST MESSAGE */}
       <section className="w-full">
-        <h2 className="mb-4 text-xl font-bold text-[#171717]">Host Message</h2>
+        <h2 className="mb-4 text-xl font-bold text-white">Host Message</h2>
 
         <form
           onSubmit={handleHostMessage}
@@ -359,9 +350,7 @@ export const LiveAdmin = () => {
       <section className="w-full">
         <div className="mb-4 flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-bold text-[#171717]">
-              Chat Moderation
-            </h2>
+            <h2 className="text-xl font-bold text-white">Chat Moderation</h2>
 
             <p className="mt-1 text-sm text-gray-500">
               {messages.length} message{messages.length === 1 ? '' : 's'}
