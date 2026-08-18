@@ -1,13 +1,19 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
+
   "name": "the-irregulars-sports-show",
+
   "main": "custom-worker.ts",
+
   "compatibility_date": "2026-08-10",
+
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS",
   },
+
   "durable_objects": {
     "bindings": [
       {
@@ -16,10 +22,15 @@
       },
     ],
   },
+
   "exports": {
     "LiveRoom": {
       "type": "durable-object",
       "storage": "sqlite",
     },
+  },
+
+  "secrets": {
+    "required": ["ADMIN_PASSWORD"],
   },
 }

@@ -22,6 +22,10 @@ type RoomMessage =
       type: 'clear';
     };
 
+type AdminAuthResult = {
+  authenticated: boolean;
+};
+
 export class LiveRoom extends DurableObject {
   async fetch(request: Request): Promise<Response> {
     if (request.headers.get('Upgrade') !== 'websocket') {
@@ -33,9 +37,25 @@ export class LiveRoom extends DurableObject {
     const client = webSocketPair[0];
     const server = webSocketPair[1];
 
+    const token = new URL(request.url).searchParams.get('token');
+
+    const auth = await this.authenticateAdmin(token);
+
     this.ctx.acceptWebSocket(server);
 
+    server.serializeAttachment({
+      isAdmin: auth.authenticated,
+    });
+
     const messages = await this.getMessages();
+
+    server.send(
+      JSON.stringify({
+        type: 'connected',
+        message: 'Connected to the live room.',
+        isAdmin: auth.authenticated,
+      })
+    );
 
     server.send(
       JSON.stringify({
@@ -60,37 +80,37 @@ export class LiveRoom extends DurableObject {
     try {
       parsedMessage = JSON.parse(message);
     } catch {
-      socket.send(
-        JSON.stringify({
-          type: 'error',
-          message: 'Invalid message.',
-        })
-      );
-
+      this.sendError(socket, 'Invalid message.');
       return;
     }
 
     if (!this.isRoomMessage(parsedMessage)) {
-      socket.send(
-        JSON.stringify({
-          type: 'error',
-          message: 'Invalid chat message.',
-        })
-      );
-
+      this.sendError(socket, 'Invalid chat message.');
       return;
     }
 
+    const isAdmin = this.isAdminSocket(socket);
+
     switch (parsedMessage.type) {
       case 'chat':
-        await this.handleChatMessage(parsedMessage);
+        await this.handleChatMessage(parsedMessage, isAdmin);
         break;
 
       case 'delete':
+        if (!isAdmin) {
+          this.sendError(socket, 'Admin permission required.');
+          return;
+        }
+
         await this.handleDeleteMessage(parsedMessage.id);
         break;
 
       case 'clear':
+        if (!isAdmin) {
+          this.sendError(socket, 'Admin permission required.');
+          return;
+        }
+
         await this.handleClearMessages();
         break;
     }
@@ -105,14 +125,18 @@ export class LiveRoom extends DurableObject {
   }
 
   private async handleChatMessage(
-    message: Extract<RoomMessage, { type: 'chat' }>
+    message: Extract<RoomMessage, { type: 'chat' }>,
+    isAdmin: boolean
   ) {
     const newMessage: ChatMessage = {
       id: message.id,
       name: message.name,
       message: message.message,
       timestamp: message.timestamp,
-      isHost: message.isHost ?? false,
+
+      // Only the authenticated admin can create
+      // a host message.
+      isHost: isAdmin && message.isHost === true,
     };
 
     const messages = await this.getMessages();
@@ -152,6 +176,158 @@ export class LiveRoom extends DurableObject {
     const messages = await this.ctx.storage.get<ChatMessage[]>(MESSAGES_KEY);
 
     return messages ?? [];
+  }
+
+  private isAdminSocket(socket: WebSocket): boolean {
+    const attachment = socket.deserializeAttachment();
+
+    if (!attachment || typeof attachment !== 'object') {
+      return false;
+    }
+
+    return 'isAdmin' in attachment && attachment.isAdmin === true;
+  }
+
+  private async authenticateAdmin(
+    token: string | null
+  ): Promise<AdminAuthResult> {
+    if (!token) {
+      return {
+        authenticated: false,
+      };
+    }
+
+    const { payload, signature } = this.parseAdminToken(token);
+
+    if (!payload || !signature) {
+      return {
+        authenticated: false,
+      };
+    }
+
+    const parts = payload.split(':');
+
+    if (parts.length !== 2 || parts[0] !== 'admin') {
+      return {
+        authenticated: false,
+      };
+    }
+
+    const expiresAt = Number(parts[1]);
+
+    if (
+      !Number.isFinite(expiresAt) ||
+      expiresAt <= Math.floor(Date.now() / 1000)
+    ) {
+      return {
+        authenticated: false,
+      };
+    }
+
+    const adminPassword = this.getAdminPassword();
+
+    if (!adminPassword) {
+      console.error('ADMIN_PASSWORD is not configured.');
+
+      return {
+        authenticated: false,
+      };
+    }
+
+    const expectedSignature = await this.createSignature(
+      adminPassword,
+      payload
+    );
+
+    if (!this.constantTimeEqual(signature, expectedSignature)) {
+      return {
+        authenticated: false,
+      };
+    }
+
+    return {
+      authenticated: true,
+    };
+  }
+
+  private getAdminPassword(): string | undefined {
+    const env = this.env as typeof this.env & {
+      ADMIN_PASSWORD?: string;
+    };
+
+    return env.ADMIN_PASSWORD;
+  }
+
+  private parseAdminToken(token: string): {
+    payload: string | null;
+    signature: string | null;
+  } {
+    const lastColon = token.lastIndexOf(':');
+
+    if (lastColon === -1) {
+      return {
+        payload: null,
+        signature: null,
+      };
+    }
+
+    return {
+      payload: token.slice(0, lastColon),
+      signature: token.slice(lastColon + 1),
+    };
+  }
+
+  private async createSignature(
+    secret: string,
+    payload: string
+  ): Promise<string> {
+    const key = await crypto.subtle.importKey(
+      'raw',
+      new TextEncoder().encode(secret),
+      {
+        name: 'HMAC',
+        hash: 'SHA-256',
+      },
+      false,
+      ['sign']
+    );
+
+    const signature = await crypto.subtle.sign(
+      'HMAC',
+      key,
+      new TextEncoder().encode(payload)
+    );
+
+    return Array.from(new Uint8Array(signature))
+      .map((byte) => byte.toString(16).padStart(2, '0'))
+      .join('');
+  }
+
+  private constantTimeEqual(a: string, b: string): boolean {
+    if (a.length !== b.length) {
+      return false;
+    }
+
+    let result = 0;
+
+    for (let i = 0; i < a.length; i++) {
+      result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+    }
+
+    return result === 0;
+  }
+
+  private sendError(socket: WebSocket, message: string) {
+    try {
+      socket.send(
+        JSON.stringify({
+          type: 'error',
+          message,
+        })
+      );
+    } catch {
+      // Ignore disconnected sockets.
+    }
   }
 
   private broadcast(data: unknown) {

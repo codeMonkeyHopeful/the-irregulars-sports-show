@@ -1,72 +1,101 @@
-import { createHmac, timingSafeEqual } from 'crypto';
-
-type Env = {
-  ADMIN_PASSWORD: string;
-};
+import { getCloudflareContext } from '@opennextjs/cloudflare';
 
 const TOKEN_LIFETIME = 60 * 60 * 8; // 8 hours
 
-function createAdminToken(secret: string): string {
-  const expiresAt = Math.floor(Date.now() / 1000) + TOKEN_LIFETIME;
+type LoginBody = {
+  password?: unknown;
+};
 
-  const payload = `admin:${expiresAt}`;
-
-  const signature = createHmac('sha256', secret).update(payload).digest('hex');
-
-  return `${payload}:${signature}`;
+function bytesToHex(bytes: Uint8Array): string {
+  return Array.from(bytes)
+    .map((byte) => byte.toString(16).padStart(2, '0'))
+    .join('');
 }
 
-function verifyPassword(supplied: string, expected: string): boolean {
-  const suppliedBuffer = Buffer.from(supplied);
-  const expectedBuffer = Buffer.from(expected);
+async function createSignature(
+  secret: string,
+  payload: string
+): Promise<string> {
+  const key = await crypto.subtle.importKey(
+    'raw',
+    new TextEncoder().encode(secret),
+    {
+      name: 'HMAC',
+      hash: 'SHA-256',
+    },
+    false,
+    ['sign']
+  );
 
-  if (suppliedBuffer.length !== expectedBuffer.length) {
-    return false;
-  }
+  const signature = await crypto.subtle.sign(
+    'HMAC',
+    key,
+    new TextEncoder().encode(payload)
+  );
 
-  return timingSafeEqual(suppliedBuffer, expectedBuffer);
+  return bytesToHex(new Uint8Array(signature));
 }
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const body = (await request.json()) as LoginBody;
 
-    const password = body?.password;
-
-    if (typeof password !== 'string') {
-      return Response.json({ error: 'Password is required.' }, { status: 400 });
+    if (!body || typeof body.password !== 'string') {
+      return Response.json(
+        {
+          error: 'Password is required.',
+        },
+        { status: 400 }
+      );
     }
 
-    /*
-     * Next.js route handlers don't automatically
-     * expose Cloudflare bindings. For now, this
-     * endpoint is a placeholder for the Cloudflare
-     * Worker authentication layer.
-     */
-    const env = process.env as unknown as Env;
+    const { env } = await getCloudflareContext({
+      async: true,
+    });
 
     const adminPassword = env.ADMIN_PASSWORD;
 
     if (!adminPassword) {
+      console.error('ADMIN_PASSWORD is not configured.');
+
       return Response.json(
         {
-          error: 'ADMIN_PASSWORD is not configured.',
+          error: 'Server configuration error.',
         },
         { status: 500 }
       );
     }
 
-    if (!verifyPassword(password, adminPassword)) {
-      return Response.json({ error: 'Incorrect password.' }, { status: 401 });
+    if (body.password !== adminPassword) {
+      return Response.json(
+        {
+          error: 'Incorrect password.',
+        },
+        { status: 401 }
+      );
     }
 
-    const token = createAdminToken(adminPassword);
+    const expiresAt = Math.floor(Date.now() / 1000) + TOKEN_LIFETIME;
+
+    const payload = `admin:${expiresAt}`;
+
+    const signature = await createSignature(adminPassword, payload);
+
+    const token = `${payload}:${signature}`;
 
     return Response.json({
       success: true,
       token,
+      expiresAt,
     });
-  } catch {
-    return Response.json({ error: 'Invalid request.' }, { status: 400 });
+  } catch (error) {
+    console.error('Admin login error:', error);
+
+    return Response.json(
+      {
+        error: 'Invalid request.',
+      },
+      { status: 400 }
+    );
   }
 }

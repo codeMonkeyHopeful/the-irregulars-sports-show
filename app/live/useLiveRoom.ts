@@ -31,7 +31,11 @@ export const useLiveRoom = ({
 
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 
-    const socketUrl = `${protocol}//${window.location.host}/api/live`;
+    const token = localStorage.getItem('live-admin-token');
+
+    const query = token ? `?token=${encodeURIComponent(token)}` : '';
+
+    const socketUrl = `${protocol}//${window.location.host}/api/live${query}`;
 
     const socket = new WebSocket(socketUrl);
 

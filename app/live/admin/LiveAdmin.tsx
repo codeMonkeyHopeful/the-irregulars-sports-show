@@ -6,11 +6,18 @@ import { useLiveChat } from '../useLiveChat';
 import { useLivePasscode } from '../useLivePasscode';
 import { useLiveStatus } from '../useLiveStatus';
 
-const ADMIN_PASSWORD = 'test123';
+type AdminLoginResponse = {
+  success?: boolean;
+  token?: string;
+  expiresAt?: number;
+  error?: string;
+};
 
 export const LiveAdmin = () => {
   const [password, setPassword] = useState('');
   const [authenticated, setAuthenticated] = useState(false);
+  const [loginError, setLoginError] = useState('');
+  const [loggingIn, setLoggingIn] = useState(false);
 
   const [hostMessage, setHostMessage] = useState('');
 
@@ -21,9 +28,9 @@ export const LiveAdmin = () => {
   const { messages, addMessage, deleteMessage, clearMessages } = useLiveChat();
 
   useEffect(() => {
-    const savedAuth = localStorage.getItem('live-admin-auth');
+    const savedToken = localStorage.getItem('live-admin-token');
 
-    if (savedAuth === 'true') {
+    if (savedToken) {
       setAuthenticated(true);
     }
   }, []);
@@ -42,20 +49,59 @@ export const LiveAdmin = () => {
     window.location.reload();
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (password === ADMIN_PASSWORD) {
-      localStorage.setItem('live-admin-auth', 'true');
+    setLoginError('');
+
+    const trimmedPassword = password.trim();
+
+    if (!trimmedPassword) {
+      setLoginError('Please enter your password.');
+      return;
+    }
+
+    setLoggingIn(true);
+
+    try {
+      const response = await fetch('/api/live/admin/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          password: trimmedPassword,
+        }),
+      });
+
+      const data = (await response.json()) as AdminLoginResponse;
+
+      if (!response.ok) {
+        setLoginError(
+          typeof data.error === 'string' ? data.error : 'Login failed.'
+        );
+
+        return;
+      }
+
+      if (data.success !== true || typeof data.token !== 'string') {
+        setLoginError('Login failed.');
+        return;
+      }
+
+      localStorage.setItem('live-admin-token', data.token);
+
       setAuthenticated(true);
       setPassword('');
-    } else {
-      alert('Incorrect password');
+    } catch {
+      setLoginError('Unable to connect to the server. Please try again.');
+    } finally {
+      setLoggingIn(false);
     }
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('live-admin-auth');
+    localStorage.removeItem('live-admin-token');
     setAuthenticated(false);
   };
 
@@ -105,17 +151,32 @@ export const LiveAdmin = () => {
               id="password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setLoginError('');
+              }}
               className="mt-2 w-full rounded-lg border p-3"
               placeholder="Enter password"
+              autoComplete="current-password"
+              disabled={loggingIn}
             />
           </div>
 
+          {loginError && (
+            <p
+              className="w-full text-left text-sm font-medium text-red-600"
+              role="alert"
+            >
+              {loginError}
+            </p>
+          )}
+
           <button
             type="submit"
-            className="rounded-lg bg-black px-6 py-3 font-semibold text-white"
+            disabled={loggingIn}
+            className="rounded-lg bg-black px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Login
+            {loggingIn ? 'Logging in...' : 'Login'}
           </button>
         </form>
       </section>
@@ -165,6 +226,8 @@ export const LiveAdmin = () => {
           </div>
         </div>
       </section>
+
+      {/* Show management */}
       <section className="w-full">
         <h2 className="mb-6 text-2xl font-bold">Show Management</h2>
 
