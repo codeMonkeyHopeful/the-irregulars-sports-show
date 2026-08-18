@@ -2,21 +2,45 @@
 
 import { useEffect, useState } from 'react';
 
-const STORAGE_KEY = 'live-passcode';
+const STORAGE_KEY = 'live-room';
+
+type LiveRoomState = {
+  isLive: boolean;
+  passcode: string;
+  messages: unknown[];
+};
+
+const DEFAULT_ROOM: LiveRoomState = {
+  isLive: false,
+  passcode: '',
+  messages: [],
+};
 
 export const useLivePasscode = () => {
   const [passcode, setPasscode] = useState('');
 
   useEffect(() => {
-    const savedPasscode = localStorage.getItem(STORAGE_KEY);
+    const loadPasscode = () => {
+      const savedRoom = localStorage.getItem(STORAGE_KEY);
 
-    if (savedPasscode) {
-      setPasscode(savedPasscode);
-    }
+      if (!savedRoom) {
+        setPasscode('');
+        return;
+      }
+
+      try {
+        const room: LiveRoomState = JSON.parse(savedRoom);
+        setPasscode(room.passcode ?? '');
+      } catch {
+        setPasscode('');
+      }
+    };
+
+    loadPasscode();
 
     const handleStorage = (event: StorageEvent) => {
       if (event.key === STORAGE_KEY) {
-        setPasscode(event.newValue ?? '');
+        loadPasscode();
       }
     };
 
@@ -32,7 +56,24 @@ export const useLivePasscode = () => {
   };
 
   const savePasscode = () => {
-    localStorage.setItem(STORAGE_KEY, passcode);
+    const savedRoom = localStorage.getItem(STORAGE_KEY);
+
+    let room = DEFAULT_ROOM;
+
+    if (savedRoom) {
+      try {
+        room = JSON.parse(savedRoom);
+      } catch {
+        room = DEFAULT_ROOM;
+      }
+    }
+
+    const updatedRoom = {
+      ...room,
+      passcode,
+    };
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedRoom));
   };
 
   return {
