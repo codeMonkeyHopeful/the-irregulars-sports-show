@@ -4,8 +4,6 @@ type Album = {
   id: string;
   title: string;
   cover: string;
-  start: number;
-  end: number;
 };
 
 export const AlbumGrid = ({ albums }: { albums: Album[] }) => {
@@ -14,7 +12,7 @@ export const AlbumGrid = ({ albums }: { albums: Album[] }) => {
       {albums.map((album) => (
         <Link key={album.id} href={`/field/${album.id}`} className="album-card">
           <img
-            src={`/photos/${album.cover}`}
+            src={`/photos/${album.id}/${album.cover}`}
             alt={album.title}
             className="album-cover"
           />

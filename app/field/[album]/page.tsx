@@ -16,11 +16,7 @@ const AlbumPage = async ({
     notFound();
   }
 
-  const albumPhotos = photos.filter((photo) => {
-    const number = parseInt(photo.id.replace(/\.[^/.]+$/, ''), 10);
-
-    return number >= currentAlbum.start && number <= currentAlbum.end;
-  });
+  const albumPhotos = photos.filter((photo) => photo.album === album);
 
   return (
     <div className="font-sans min-h-screen p-8 sm:p-20">
