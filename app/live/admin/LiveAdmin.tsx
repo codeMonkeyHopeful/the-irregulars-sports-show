@@ -22,113 +22,99 @@ export const LiveAdmin = () => {
 
   if (!authenticated) {
     return (
-      <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-        <main className="flex flex-col gap-[32px] row-start-2 items-center w-full">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem] text-center">
-            <span className="title">Live Admin</span>
-          </h1>
+      <section className="w-full max-w-md text-center">
+        <h2 className="mb-6 text-2xl font-bold">Admin Login</h2>
 
-          <section className="w-full max-w-md text-center">
-            <h2 className="mb-6 text-2xl font-bold">Admin Login</h2>
+        <form
+          onSubmit={handleLogin}
+          className="flex flex-col items-center gap-4"
+        >
+          <div className="w-full text-left">
+            <label htmlFor="password" className="block text-sm font-medium">
+              Admin Password
+            </label>
 
-            <form
-              onSubmit={handleLogin}
-              className="flex flex-col items-center gap-4"
-            >
-              <div className="w-full text-left">
-                <label htmlFor="password" className="block text-sm font-medium">
-                  Admin Password
-                </label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="mt-2 w-full rounded-lg border p-3"
+              placeholder="Enter password"
+            />
+          </div>
 
-                <input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="mt-2 w-full rounded-lg border p-3"
-                  placeholder="Enter password"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="rounded-lg bg-black px-6 py-3 font-semibold text-white"
-              >
-                Login
-              </button>
-            </form>
-          </section>
-        </main>
-      </div>
+          <button
+            type="submit"
+            className="rounded-lg bg-black px-6 py-3 font-semibold text-white"
+          >
+            Login
+          </button>
+        </form>
+      </section>
     );
   }
 
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center w-full max-w-3xl">
-        <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem] text-center">
-          <span className="title">Live Admin</span>
-        </h1>
+    <div className="flex w-full flex-col gap-[32px]">
+      <section className="w-full">
+        <h2 className="mb-6 text-center text-2xl font-bold">
+          Live Show Control
+        </h2>
 
-        <section className="w-full">
-          <h2 className="mb-6 text-2xl font-bold text-center">
-            Live Show Control
-          </h2>
+        <div className="rounded-xl border p-6">
+          <div className="flex flex-col items-center gap-5 text-center sm:flex-row sm:justify-between">
+            <div>
+              <p className="text-sm text-gray-500">Chat Status</p>
 
-          <div className="rounded-xl border p-6">
-            <div className="flex flex-col items-center gap-5 text-center sm:flex-row sm:justify-between">
-              <div>
-                <p className="text-sm text-gray-500">Chat Status</p>
-
-                <p className="mt-1 text-xl font-bold">
-                  {isLive ? '🔴 LIVE' : '⚫ OFFLINE'}
-                </p>
-              </div>
-
-              <button
-                onClick={() => setIsLive((current) => !current)}
-                className={`rounded-lg px-6 py-3 font-semibold text-white ${
-                  isLive ? 'bg-red-600' : 'bg-green-600'
-                }`}
-              >
-                {isLive ? 'End Live' : 'Start Live'}
-              </button>
-            </div>
-          </div>
-        </section>
-
-        <section className="w-full">
-          <h2 className="mb-6 text-2xl font-bold text-center">Listener Chat</h2>
-
-          <div className="rounded-xl border p-6 text-center">
-            <p className="text-sm text-gray-500">
-              Set the passcode listeners will use to enter the live chat.
-            </p>
-
-            <div className="mx-auto mt-6 max-w-md text-left">
-              <label htmlFor="passcode" className="block text-sm font-medium">
-                Listener Passcode
-              </label>
-
-              <input
-                id="passcode"
-                type="text"
-                value={passcode}
-                onChange={(e) => setPasscode(e.target.value)}
-                className="mt-2 w-full rounded-lg border p-3"
-                placeholder="Example: IRREGULARS26"
-              />
+              <p className="mt-1 text-xl font-bold">
+                {isLive ? '🔴 LIVE' : '⚫ OFFLINE'}
+              </p>
             </div>
 
             <button
-              className="mt-5 rounded-lg bg-black px-6 py-3 font-semibold text-white"
-              onClick={() => alert(`Passcode set to: ${passcode}`)}
+              onClick={() => setIsLive((current) => !current)}
+              className={`rounded-lg px-6 py-3 font-semibold text-white ${
+                isLive ? 'bg-red-600' : 'bg-green-600'
+              }`}
             >
-              Save Passcode
+              {isLive ? 'End Live' : 'Start Live'}
             </button>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
+
+      <section className="w-full">
+        <h2 className="mb-6 text-center text-2xl font-bold">Listener Chat</h2>
+
+        <div className="rounded-xl border p-6 text-center">
+          <p className="text-sm text-gray-500">
+            Set the passcode listeners will use to enter the live chat.
+          </p>
+
+          <div className="mx-auto mt-6 max-w-md text-left">
+            <label htmlFor="passcode" className="block text-sm font-medium">
+              Listener Passcode
+            </label>
+
+            <input
+              id="passcode"
+              type="text"
+              value={passcode}
+              onChange={(e) => setPasscode(e.target.value)}
+              className="mt-2 w-full rounded-lg border p-3"
+              placeholder="Example: IRREGULARS26"
+            />
+          </div>
+
+          <button
+            className="mt-5 rounded-lg bg-black px-6 py-3 font-semibold text-white"
+            onClick={() => alert(`Passcode set to: ${passcode}`)}
+          >
+            Save Passcode
+          </button>
+        </div>
+      </section>
     </div>
   );
 };
