@@ -1,27 +1,23 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useLiveStatus } from '../useLiveStatus';
 
 const ADMIN_PASSWORD = 'test123';
 
 export const LiveAdmin = () => {
   const [password, setPassword] = useState('');
   const [authenticated, setAuthenticated] = useState(false);
-
-  const [isLive, setIsLive] = useState(false);
   const [passcode, setPasscode] = useState('');
+
+  const { isLive, startLive, endLive } = useLiveStatus();
 
   useEffect(() => {
     const savedAuth = localStorage.getItem('live-admin-auth');
-    const savedLive = localStorage.getItem('live-status');
     const savedPasscode = localStorage.getItem('live-passcode');
 
     if (savedAuth === 'true') {
       setAuthenticated(true);
-    }
-
-    if (savedLive === 'true') {
-      setIsLive(true);
     }
 
     if (savedPasscode) {
@@ -44,13 +40,6 @@ export const LiveAdmin = () => {
   const handleLogout = () => {
     localStorage.removeItem('live-admin-auth');
     setAuthenticated(false);
-  };
-
-  const handleToggleLive = () => {
-    const newStatus = !isLive;
-
-    setIsLive(newStatus);
-    localStorage.setItem('live-status', String(newStatus));
   };
 
   const handleSavePasscode = () => {
@@ -117,14 +106,21 @@ export const LiveAdmin = () => {
               </p>
             </div>
 
-            <button
-              onClick={handleToggleLive}
-              className={`rounded-lg px-6 py-3 font-semibold text-white ${
-                isLive ? 'bg-red-600' : 'bg-green-600'
-              }`}
-            >
-              {isLive ? 'End Live' : 'Start Live'}
-            </button>
+            {isLive ? (
+              <button
+                onClick={endLive}
+                className="rounded-lg bg-red-600 px-6 py-3 font-semibold text-white"
+              >
+                End Live
+              </button>
+            ) : (
+              <button
+                onClick={startLive}
+                className="rounded-lg bg-green-600 px-6 py-3 font-semibold text-white"
+              >
+                Start Live
+              </button>
+            )}
           </div>
         </div>
       </section>

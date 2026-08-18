@@ -1,35 +1,38 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useLiveStatus } from './useLiveStatus';
 
 export const LiveChat = () => {
-  useEffect(() => {
-    const existingScript = document.querySelector(
-      'script[data-chateasily-room="vE6e3oKWJP"]'
+  const { isLive } = useLiveStatus();
+
+  if (!isLive) {
+    return (
+      <div className="rounded-xl border p-8 text-center">
+        <p className="text-lg font-semibold">
+          The live chat is currently offline.
+        </p>
+
+        <p className="mt-2 text-sm text-gray-500">
+          Check back when the show is live.
+        </p>
+      </div>
     );
+  }
 
-    if (existingScript) {
-      return;
-    }
+  return (
+    <div className="rounded-xl border p-8">
+      <div className="mb-6 text-center">
+        <p className="font-semibold text-red-600">🔴 LIVE</p>
 
-    const script = document.createElement('script');
+        <p className="mt-1 text-sm text-gray-500">
+          The chat is currently live.
+        </p>
+      </div>
 
-    script.src = 'https://chat.chateasily.com/embed-loader.js';
-    script.async = true;
-
-    script.dataset.chateasilyRoom = 'vE6e3oKWJP';
-    script.dataset.roomId = 'vE6e3oKWJP';
-    script.dataset.mode = 'inline';
-    script.dataset.target = '#my-chat';
-    script.dataset.width = '100%';
-    script.dataset.height = '500px';
-
-    document.body.appendChild(script);
-
-    return () => {
-      script.remove();
-    };
-  }, []);
-
-  return <div id="my-chat" />;
+      {/* Real chat will go here */}
+      <div className="rounded-lg bg-gray-100 p-6 text-center">
+        <p>Chat is live!</p>
+      </div>
+    </div>
+  );
 };
