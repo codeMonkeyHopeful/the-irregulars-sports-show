@@ -81,6 +81,14 @@ export const teamMembers = [
     quote: ``,
   },
   {
+    name: 'The Bar Keep',
+    title: `Man, Myth, Bar Keep`,
+    photoSrc: '/profile-the-bar-keep.jpeg',
+    teams: `UCLA, Los Angeles Lakers, Oakland Raiders, Los Angeles Dodgers`,
+    bio: ``,
+    quote: ``,
+  },
+  {
     name: 'codeMonkeyHopeful',
     title: 'Head Dev in Charge (yup HDIC)',
     photoSrc: '/profile-ryan.jpg',
