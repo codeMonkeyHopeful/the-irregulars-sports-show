@@ -10,8 +10,8 @@ export const albums = [
     cover: '1.jpg',
   },
   {
-    id: 'techmo-bowl',
-    title: 'Techmo Bowl',
+    id: 'tecmo-bowl',
+    title: 'Tecmo Bowl',
     cover: '15.jpg',
   },
 ];
