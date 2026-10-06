@@ -1,5 +1,11 @@
 export const photos = [
   {
+    "id": "fans/1.jpg",
+    "album": "fans",
+    "filename": "1.jpg",
+    "src": "/photos/fans/1.jpg"
+  },
+  {
     "id": "out/1.jpg",
     "album": "out",
     "filename": "1.jpg",

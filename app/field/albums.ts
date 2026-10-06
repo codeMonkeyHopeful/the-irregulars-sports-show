@@ -14,4 +14,9 @@ export const albums = [
     title: 'Tecmo Bowl',
     cover: '15.jpg',
   },
+  {
+    id: 'fans',
+    title: 'Our Fans',
+    cover: '1.jpg',
+  },
 ];
