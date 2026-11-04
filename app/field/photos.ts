@@ -12,6 +12,12 @@ export const photos = [
     "src": "/photos/fans/2.jpeg"
   },
   {
+    "id": "fans/3.jpeg",
+    "album": "fans",
+    "filename": "3.jpeg",
+    "src": "/photos/fans/3.jpeg"
+  },
+  {
     "id": "out/1.jpg",
     "album": "out",
     "filename": "1.jpg",
